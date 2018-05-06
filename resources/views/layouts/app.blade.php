@@ -9,7 +9,9 @@
 
 		@else
 		
-		@include('inc.nav')
+		@yield('nav')
+
+		@include('inc.message')
 		
 		@endif
 		

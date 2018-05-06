@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
 			$table->string('surname', 60);
 			$table->float('regno', 11)->unique();
 			$table->string('gender',10);
+			$table->string('campus',30);
 			$table->string('department', 60);
 			$table->string('phone', 30);
 			$table->string('state', 30);

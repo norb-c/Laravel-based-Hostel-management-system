@@ -3,11 +3,10 @@
 @section('content')
 
 <div class="row justify-content-center">
-		{{print_r($errors)}}
 	<div class="col-md-8">
 		<div class="card">
 			<div class="card-header">{{ __('Register') }}</div>
-	
+			
 			<div class="card-body">
 				<form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
 					@csrf
@@ -42,6 +41,7 @@
 					
 					<div class="form-group row">
 						<label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+						
 						
 						<div class="col-md-6">
 							<input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" >
@@ -80,6 +80,24 @@
 							@if ($errors->has('gender'))
 							<span class="invalid-feedback">
 								<strong>{{ $errors->first('gender') }}</strong>
+							</span>
+							@endif
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="campus" class="col-md-4 col-form-label text-md-right">{{ __('Campus') }}</label>
+						
+						<div class="col-md-6">
+							<select class="form-control{{ $errors->has('campus') ? ' is-invalid' : '' }}" id="campus" name="campus" value="{{ old('campus') }}"  }}> 
+								<option value=" "></option>
+								<option value="1">Main Campus Ifite</option>
+								<option value="2">Nnewi Campus</option>
+								<option value="3">Agulu Campus</option>
+							</select>
+							@if ($errors->has('campus'))
+							<span class="invalid-feedback">
+								<strong>{{ $errors->first('campus') }}</strong>
 							</span>
 							@endif
 						</div>

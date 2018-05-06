@@ -59,6 +59,7 @@ class RegisterController extends Controller
 			'email' => 'required|string|email|max:60|unique:users',
 			'regno' => 'required|numeric|unique:users',
 			'gender' => 'required|numeric',
+			'campus' => 'required',
 			'department' => 'required|string|max:50',
 			'phone' => 'required|numeric',
 			'state' => 'required|string|max:30',
@@ -73,7 +74,7 @@ class RegisterController extends Controller
 		
 		public function register(Request $request)
 		{
-			// dd($request);
+	
 			if($request->hasFile('passport')){
 				$file = $request->file('passport');
 				$filenameWithExt = $file->getClientOriginalName();
@@ -112,6 +113,7 @@ class RegisterController extends Controller
 				'email' => $data['email'],
 				'regno' => $data['regno'],
 				'gender' => $data['gender'],
+				'campus' => $data['campus'],
 				'department' => $data['department'],
 				'phone' => $data['phone'],
 				'state' => $data['state'],

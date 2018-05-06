@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //user logout
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-
+Route::resource('admin/hostels', 'HostelController');
 
 //we can group  all our sllag admin so we dont have to do /admin/login
 Route::prefix('admin')->group(function(){
@@ -42,6 +42,5 @@ Route::prefix('admin')->group(function(){
 	Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 	//4.resets the password and log user in(called from the url from the email)
 	Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset');
-	
 	
 });
