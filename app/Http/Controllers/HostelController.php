@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Hostel;
 use App\Campus;
+use App\Room;
 use Illuminate\Http\Request;
 
 class HostelController extends Controller
@@ -19,7 +20,10 @@ class HostelController extends Controller
 	*/
 	public function index()
 	{
-		return view('admin.hostel.index');	
+	
+		$hostel = Hostel::all();
+		$campus = Campus::all();
+		return view('admin.hostel.index')->withHostels($hostel)->withCampuses($campus);
 	}
 	
 	/**
@@ -30,9 +34,6 @@ class HostelController extends Controller
 	public function create()
 	{
 		
-		$hostel = Hostel::all();
-		$campus = Campus::all();
-		return view('admin.hostel.create')->withHostels($hostel)->withCampuses($campus);
 	}
 	
 	/**
@@ -57,7 +58,7 @@ class HostelController extends Controller
 			$hostels->campus()->associate($campus_id);
 
 			$hostels->save();
-			return redirect()->route('hostels.create')->with('success', 'Hostel successfully created');
+			return redirect()->route('hostels.index')->with('success', 'Hostel successfully created');
 		}
 		
 		/**
@@ -68,7 +69,16 @@ class HostelController extends Controller
 		*/
 		public function show(Hostel $hostel)
 		{
-			//
+			$campus_id = $hostel->campus_id;
+			$hostel_id = $hostel->id;
+
+			$rooms = Room::where([
+				['campus_id', '=', $campus_id],
+				['hostel_id', '=', $hostel_id]
+		  ])->orderBy('floor', 'desc')->get();
+			
+		  
+			return view('admin.rooms.index')->withHostel($hostel)->withRooms($rooms);
 		}
 		
 		/**

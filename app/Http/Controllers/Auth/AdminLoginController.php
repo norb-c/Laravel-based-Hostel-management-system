@@ -28,7 +28,7 @@ class AdminLoginController extends Controller
 			//attempt to log the user in
 			if(Auth::guard('admin')->attempt(['email' => $request->email,'password' => $request->password])){
 				//if succcesful attempt to redirect to their intended location
-				return redirect()->intended(route('admin.dashboard'));
+				return redirect()->intended('/admin');
 			}
 			//if unsuccessful, redirect back to the login with the form data
 			return redirect()->back()->withInput($request->only('email', 'remember'));

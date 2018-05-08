@@ -21,6 +21,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 //user logout
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 Route::resource('admin/hostels', 'HostelController');
+Route::resource('admin/rooms', 'RoomController');
+
+//bed
+Route::get('admin/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
+Route::post('admin/bed/update', 'RoomController@bedUpdate')->name('bed.update');
+
 
 //we can group  all our sllag admin so we dont have to do /admin/login
 Route::prefix('admin')->group(function(){
