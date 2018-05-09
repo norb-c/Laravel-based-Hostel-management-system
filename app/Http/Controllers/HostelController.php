@@ -21,7 +21,7 @@ class HostelController extends Controller
 	public function index()
 	{
 	
-		$hostel = Hostel::all();
+		$hostel = Hostel::orderBy('campus_id')->get();
 		$campus = Campus::all();
 		return view('admin.hostel.index')->withHostels($hostel)->withCampuses($campus);
 	}

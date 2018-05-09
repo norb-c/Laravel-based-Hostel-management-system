@@ -57,7 +57,11 @@ class RoomController extends Controller
 				'first' => $request->first,
 				'second'=> $request->second,
 				'third' => $request->third,
-				'fourth'=> $request->fourth
+				'fourth'=> $request->fourth,
+				'us1'	  => '0',
+				'us2'	  => '0',
+				'us3'	  => '0',
+				'us4'	  => '0'
 			];
 			
 			$bed_json = json_encode($bed_arr);
@@ -111,28 +115,30 @@ class RoomController extends Controller
 				'second'=> 'required',
 				'third' => 'required',
 				'fourth'=> 'required'	
-			]);
+				]);
 				
+				
+				//find room by id
 				$room = Room::find($request->hidden);
+				//get the previous bed deatils and convert it to array
+				$prev_bed = json_decode($room->bed,true);
 				
-				$bed_arr = [
-					'first' => $request->first,
-					'second'=> $request->second,
-					'third' => $request->third,
-					'fourth'=> $request->fourth
-				];
-				$count = 0;
-				foreach ($bed_arr as $bed) {
-					if($bed){
-						$count += 1;
-					}
-				}
+				$arr = [];
+				$i = 0;
+				$arr['first'] = $request->first;
+				$arr['second'] = $request->second;
+				$arr['third'] = $request->third;
+				$arr['fourth'] = $request->fourth;
+				$arr['us1'] = $prev_bed['us1'];
+				$arr['us2'] = $prev_bed['us2'];
+				$arr['us3'] = $prev_bed['us3'];
+				$arr['us4'] = $prev_bed['us4'];
 				
-				$bed_json = json_encode($bed_arr);
-				
-				$room->bed = $bed_json;
+				$count = $request->first + $request->second + $request->third + $request->fourth;
+				$room->bed = json_encode($arr);
 				$room->save();
-				return response($count);
+
+				return response()->json($count);
 			}
 			
 			
