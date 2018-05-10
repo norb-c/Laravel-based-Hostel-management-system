@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-		  'name','surname', 'email','regno','gender','campus','department',
+		  'name','surname', 'email','regno','gender','campus_id','department',
 		  'phone','state','address','nok','nokno','passport', 'password',
     ];
 
@@ -26,5 +26,10 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password', 'remember_token',
-    ];
+	 ];
+	 
+
+	 public function campus(){
+		return $this->belongsTo('App\Campus');
+	 }
 }

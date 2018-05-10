@@ -31,16 +31,7 @@
 					@endswitch
 					<td>{{$room->room_no}}</td>
 					<td>
-						<?php
-						$bed_count = json_decode($room->bed, true);
-						$count = 0;
-						foreach($bed_count as $bed => $value){
-							if($value){
-								$count += 1;
-							}
-						}
-						?>
-						<span class="mx-3">{{$count}}</span>
+						<span class="mx-3">{{$room->available}}</span>
 						<button class="btn btn-sm btn-outline-primary btnupd" data-id ="{{$room->id}}">Update</button>  
 					</td>
 					<td></td>
@@ -89,7 +80,7 @@
 					{{Form::label('floor', 'Floor:', ['class' => 'col-3 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="floor" id="floor" class="form-control">
-							<option value="x">Select Floor</option>
+							<option value="">Select Floor</option>
 							<option value="1">First</option>
 							<option value="2">Second</option>
 							<option value="3">Third</option>
@@ -107,22 +98,22 @@
 				<div class=" form-group row">
 					{{Form::label('first', 'Space 1:', ['class' => 'col col-form-label text-md-left'])}}
 					<div class="col">
-						<input type="number" value = "0" max = "1" name="first" id="first" class="form-control">
+						<input type="number" value = "0" min = "0" name="first" id="first" class="form-control">
 					</div>
 					{{Form::label('second', 'Space 2:', ['class' => 'col col-form-label text-md-left'])}}
 					<div class="col">
-						<input type="number" value = "0" max="1" name="second" id="second" class="form-control">
+						<input type="number" value = "0" min="0" name="second" id="second" class="form-control">
 					</div>
 				</div>
 				
 				<div class=" form-group row">
 					{{Form::label('third', 'Space 3:', ['class' => 'col col-form-label text-md-left'])}}
 					<div class="col">
-						<input type="number" value = "0" max="1" name="third" id="second" class="form-control">
+						<input type="number" value = "0" min="0" name="third" id="second" class="form-control">
 					</div>
 					{{Form::label('fourth', 'Space 4:', ['class' => 'col col-form-label text-md-left'])}}
 					<div class="col">
-						<input type="number" value = "0" max="1" name="fourth" id="fourth" class="form-control">
+						<input type="number" value = "0" min="0" name="fourth" id="fourth" class="form-control">
 					</div>
 				</div>
 				
@@ -145,19 +136,20 @@
 	
 	$(function(){
 		
+		//remove the class for adding avail. room
 		$('#update').on('hidden.bs.modal', function (e) {
 			setTimeout(() => {
 				$('span').removeClass('count');
 			}, 250);
 		})
 		
-		
+		//updating the room with user_id
 		$(".btnupd").click(function(){
 			let token = "{{Session::token()}}";
 			let id = $(this).data('id');
 			let url = "{{ route("bed.edit") }}";
+			//add a class to the element to be updated
 			$(this).prev().addClass('count');
-			
 			
 			data = {
 				id: id,
@@ -201,15 +193,16 @@
 		
 		
 		
+
+		//generating room no
 		let floor = $('#floor');
 		let room = $('#room_no');
 		roomNo();
 		
 		floor.change(function(){
-			$("#floor option[value='x']").remove();
+			$("#floor option[value='']").remove();
 			roomNo();
 		});
-		
 		function roomNo(){
 			if(floor.val() == 1){
 				$('#room_no option').remove();

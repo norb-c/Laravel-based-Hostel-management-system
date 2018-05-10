@@ -86,18 +86,18 @@
 					</div>
 					
 					<div class="form-group row">
-						<label for="campus" class="col-md-4 col-form-label text-md-right">{{ __('Campus') }}</label>
+						<label for="campus_id" class="col-md-4 col-form-label text-md-right">{{ __('Campus') }}</label>
 						
 						<div class="col-md-6">
-							<select class="form-control{{ $errors->has('campus') ? ' is-invalid' : '' }}" id="campus" name="campus" value="{{ old('campus') }}"  }}> 
+							<select class="form-control{{ $errors->has('campus_id') ? ' is-invalid' : '' }}" id="campus_id" name="campus_id" value="{{ old('campus_id') }}"  }}> 
 								<option value=" "></option>
 								<option value="1">Main Campus Ifite</option>
 								<option value="2">Nnewi Campus</option>
 								<option value="3">Agulu Campus</option>
 							</select>
-							@if ($errors->has('campus'))
+							@if ($errors->has('campus_id'))
 							<span class="invalid-feedback">
-								<strong>{{ $errors->first('campus') }}</strong>
+								<strong>{{ $errors->first('campus_id') }}</strong>
 							</span>
 							@endif
 						</div>

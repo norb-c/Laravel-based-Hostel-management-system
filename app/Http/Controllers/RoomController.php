@@ -53,28 +53,35 @@ class RoomController extends Controller
 			
 			$room = new Room;
 			
+			//generate available room
+			$available = 4;
+			$x = ['first','second','third','fourth'];
+			foreach($x as $a){
+				if($request->$a){
+					$available -= 1;
+				}
+			}
+			
 			$bed_arr = [
 				'first' => $request->first,
 				'second'=> $request->second,
 				'third' => $request->third,
 				'fourth'=> $request->fourth,
-				'us1'	  => '0',
-				'us2'	  => '0',
-				'us3'	  => '0',
-				'us4'	  => '0'
 			];
 			
 			$bed_json = json_encode($bed_arr);
+			
 			
 			$room->campus_id = $request->campus_id;
 			$room->hostel_id = $request->hostel_id;
 			$room->type 	  = $request->type;
 			$room->floor	  = $request->floor;
 			$room->room_no   = $request->room_no;
+			$room->available = $available;
 			$room->bed       = $bed_json;
 			
 			$room->save();
-			return redirect()->route('hostels.show', $request->hostel_id)->with('success', 'Rooms Successfully Created');
+			return redirect()->route('hostels.show', $request->hostel_id)->with('success', 'Room Successfully Created');
 			
 		}
 		
@@ -104,7 +111,7 @@ class RoomController extends Controller
 			$room = Room::find($request->id);
 			
 			$data = json_decode($room->bed, true);
-			$newData = $data['id'] = $request->id;
+			$data['id'] = $request->id;
 			return response()->json($data);
 		}
 		
@@ -114,7 +121,7 @@ class RoomController extends Controller
 				'first' => 'required',
 				'second'=> 'required',
 				'third' => 'required',
-				'fourth'=> 'required'	
+				'fourth'=> 'required'
 				]);
 				
 				
@@ -123,22 +130,25 @@ class RoomController extends Controller
 				//get the previous bed deatils and convert it to array
 				$prev_bed = json_decode($room->bed,true);
 				
+				$available = 4;
+				$x = ['first','second','third','fourth'];
+				foreach($x as $a){
+					if($request->$a){
+						$available -= 1;
+					}
+				}
+				
 				$arr = [];
-				$i = 0;
 				$arr['first'] = $request->first;
 				$arr['second'] = $request->second;
 				$arr['third'] = $request->third;
 				$arr['fourth'] = $request->fourth;
-				$arr['us1'] = $prev_bed['us1'];
-				$arr['us2'] = $prev_bed['us2'];
-				$arr['us3'] = $prev_bed['us3'];
-				$arr['us4'] = $prev_bed['us4'];
 				
-				$count = $request->first + $request->second + $request->third + $request->fourth;
 				$room->bed = json_encode($arr);
+				$room->available = $available;
 				$room->save();
-
-				return response()->json($count);
+				
+				return response()->json($available);
 			}
 			
 			

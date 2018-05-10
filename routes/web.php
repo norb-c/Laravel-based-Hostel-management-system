@@ -27,6 +27,24 @@ Route::resource('admin/rooms', 'RoomController');
 Route::get('admin/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
 Route::post('admin/bed/update', 'RoomController@bedUpdate')->name('bed.update');
 
+//hostel allocation
+Route::get('student/allocate', 'AllocateController@index')->name('allocate.index');
+Route::get('studen/allocate/getfloor', 'AllocateController@getFloor')->name('allocate.getfloor');
+Route::get('studen/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //we can group  all our sllag admin so we dont have to do /admin/login
 Route::prefix('admin')->group(function(){

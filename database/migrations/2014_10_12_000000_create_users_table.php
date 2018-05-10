@@ -18,9 +18,8 @@ class CreateUsersTable extends Migration
 			$table->string('name',60);
 			$table->string('email')->unique();
 			$table->string('surname', 60);
-			$table->float('regno', 11)->unique();
+			$table->unsignedInteger('regno')->unique();
 			$table->string('gender',10);
-			$table->string('campus',30);
 			$table->string('department', 60);
 			$table->string('phone', 30);
 			$table->string('state', 30);
@@ -32,6 +31,11 @@ class CreateUsersTable extends Migration
 			$table->rememberToken();
 			$table->timestamps();
 		});
+		
+		Schema::table('users', function (Blueprint $table) {
+			$table->unsignedInteger('campus_id')->after('gender');
+			$table->foreign('campus_id')->references('id')->on('campuses')->onDelete('cascade');
+		});
 	}
 	
 	/**
@@ -41,6 +45,10 @@ class CreateUsersTable extends Migration
 	*/
 	public function down()
 	{
+		Schema::table('users', function (Blueprint $table) {
+			$table->dropForeign('users_campus_id_foreign');
+	  });
+	
 		Schema::dropIfExists('users');
 	}
 }

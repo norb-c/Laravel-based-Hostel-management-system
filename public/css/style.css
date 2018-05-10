@@ -9,3 +9,7 @@ img.slide-item {
 	max-width: 100%;
 	margin: auto;
 }
+
+.bg-ash {
+	background-color: rgb(211, 209, 209, 0.25);
+}

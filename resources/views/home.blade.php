@@ -8,14 +8,9 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">UsersDashboard</div>
-
+					
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
+					 <a href="{{route('allocate.index')}}" class="btn btn-primary">Allocate</a>
                    @component('components.who')
 						 @endcomponent
                 </div>

@@ -12,4 +12,8 @@ class Campus extends Model
 		//user has many posts
 		return $this->hasMany('App\Hostel');
 	}
+
+	public function students(){
+		return $this->hasMany('App\User');
+	}
 }
