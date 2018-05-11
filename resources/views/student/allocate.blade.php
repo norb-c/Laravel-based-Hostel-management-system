@@ -5,20 +5,22 @@
 @section('content')
 
 <div class="row">
-	<div class="col">
-		<div class="bed-none h-100 w-100">
-			<a href="" id = "first" class="bed d-inline-block bg-success h-25 w-25 m-3">
-				<h1 class="text-center text-light">A</h1>
-			</a>
-			<a href="" id = "second" class="bed d-inline-block bg-success h-25 w-25 m-3">
-				<h1 class="text-center text-light">B</h1>
-			</a>
-			<a href="" id = "third" class="bed d-inline-block  bg-success h-25 w-25 m-3">
-				<h1 class="text-center text-light">C</h1>
-			</a>
-			<a href="" id = "fourth" class="bed d-inline-block bg-success h-25 w-25 m-3">
-				<h1 class="text-center text-light">D</h1>
-			</a>
+	<div class="col parent">
+		<div class="toggle h-100 w-100">
+			<div class="h-100 w-100 ">
+				<a href="" id = "first" class="bed d-inline-block bg-success h-25 w-25 m-3">
+					<h1 class="text-center text-light">A</h1>
+				</a>
+				<a href="" id = "second" class="bed d-inline-block bg-success h-25 w-25 m-3">
+					<h1 class="text-center text-light">B</h1>
+				</a>
+				<a href="" id = "third" class="bed d-inline-block  bg-success h-25 w-25 m-3">
+					<h1 class="text-center text-light">C</h1>
+				</a>
+				<a href="" id = "fourth" class="bed d-inline-block bg-success h-25 w-25 m-3">
+					<h1 class="text-center text-light">D</h1>
+				</a>
+			</div>
 		</div>
 	</div>
 	
@@ -102,24 +104,30 @@
 		let hostel = $('#hostel_id');
 		let floor = $('#floor');
 		let room = $('#room_no');
-		let selected = $("#floor option[value='x']")
+		let selected = $("#floor option[value='x']");
 		let submit  = $("input[type='submit']");
 		let first = $('#first');
 		let second = $('#second');
 		let third = $('#third');
 		let fourth = $('#fourth');
-		let bed = $('.bed-none');
 		let disabled;
 		let notDisabled;
 		let Space;
+		let toggle = $('.toggle').detach();
 		
-		
+		function toggleBed(){
+			if(toggle == null || toggle.length == 0){
+				toggle = $('.toggle').detach();
+			}
+		}
 		
 		hostel.change(function(){
-			bed.removeClass('bed-display');
-			bed.addClass('bed-none');
+			toggleBed();
 			//reset the floor option
 			selected.attr('selected', '');
+			room.html("<option value = ''>Select Room</option>").attr('disabled','');
+			
+			submit.attr('disabled', '');
 			if(hostel.val()){
 				floor.removeAttr('disabled');
 			}else{
@@ -127,13 +135,16 @@
 				floor.attr('disabled', '');
 				room.html("<option value = ''>Select Room</option>").attr('disabled','');
 			}
+			//clear the selected attr for reselection
 			selected.removeAttr('selected');
 		});
 		
 		floor.change(function(){
-			bed.removeClass('bed-display');
-			bed.addClass('bed-none');
+			toggleBed();
 			let url = "{{route('allocate.getfloor')}}";
+			if(room.val()){
+				submit.attr('disabled', '');
+			}
 			let data = {
 				hostel_id: hostel.val(),
 				floor: floor.val()
@@ -151,19 +162,17 @@
 					});
 				}
 			});
-			
-			room.change(function(){
-				bed.removeClass('bed-display');
-				bed.addClass('bed-none');
-				if(room.val()){
-					submit.removeAttr('disabled');
-				}else{
-					submit.attr('disabled', '');
-				}
-			});
-			
 		});
 		
+		room.change(function(){
+			toggleBed();
+			
+			if(room.val()){
+				submit.removeAttr('disabled');
+			}else{
+				submit.attr('disabled', '');
+			}
+		});
 		
 		//generate bed-spaces
 		$('#allocate').submit(function(e){
@@ -182,8 +191,10 @@
 				url: uri,
 				data:data,
 				success:function(data){
-					bed.removeClass('bed-none');
-					bed.addClass('bed-display');
+					if(toggle != null){
+						toggle.appendTo($('.parent'));
+					}
+					toggle = null;
 					
 					if(data.first > 0){
 						first.addClass('disabled');
@@ -225,7 +236,7 @@
 			disabled.click(function(e){
 				e.preventDefault();
 			});
-
+			
 			notDisabled.click(function(e){
 				e.preventDefault();
 				//gets the space selected
