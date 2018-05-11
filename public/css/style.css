@@ -10,6 +10,20 @@ img.slide-item {
 	margin: auto;
 }
 
-.bg-ash {
-	background-color: rgb(211, 209, 209, 0.25);
+.bed-none {
+	display: none;
+}
+
+.bed-display {
+	display: inline-block;
+}
+
+.disabled {
+	background-color: #9a9da0 !important;
+	cursor: not-allowed;
+}
+
+a.disabled:hover {
+	text-decoration: none;
+	background-color: #9a9da0 !important;
 }
