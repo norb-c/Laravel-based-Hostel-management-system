@@ -20,26 +20,14 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 //user logout
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-Route::resource('admin/hostels', 'HostelController');
-Route::resource('admin/rooms', 'RoomController');
-
-//bed
-Route::get('admin/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
-Route::post('admin/bed/update', 'RoomController@bedUpdate')->name('bed.update');
-
-//hostel allocation
-Route::get('student/allocate', 'AllocateController@index')->name('allocate.index');
-Route::get('studen/allocate/getfloor', 'AllocateController@getFloor')->name('allocate.getfloor');
-Route::get('studen/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
 
 
-
-
-
-
-
-
-
+Route::prefix('student')->group(function(){
+	//hostel allocation
+	Route::get('/allocate', 'AllocateController@index')->name('allocate.index');
+	Route::get('/allocate/getRooms', 'AllocateController@getRooms')->name('allocate.getrooms');
+	Route::get('/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
+});
 
 
 
@@ -66,5 +54,12 @@ Route::prefix('admin')->group(function(){
 	Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 	//4.resets the password and log user in(called from the url from the email)
 	Route::post('/password/reset', 'Auth\AdminResetPasswordController@reset');
+	
+	Route::resource('/hostels', 'HostelController');
+	Route::resource('/rooms', 'RoomController');
+	
+	//bed
+	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
+	Route::post('/bed/update', 'RoomController@bedUpdate')->name('bed.update');
 	
 });

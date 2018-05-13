@@ -32,4 +32,8 @@ class User extends Authenticatable
 	 public function campus(){
 		return $this->belongsTo('App\Campus');
 	 }
+
+	 public function allocUser(){
+		return $this->belongsTo('App\Allocate');
+	}
 }

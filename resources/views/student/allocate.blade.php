@@ -2,8 +2,9 @@
 @section('nav')
 @include('inc.nav')
 @endsection
-@section('content')
 
+
+@section('content')
 <div class="row">
 	<div class="col parent">
 		<div class="toggle h-100 w-100">
@@ -30,7 +31,7 @@
 				Choose Hostel
 			</div>
 			<div class="card-body justify-content-center">
-				{{Form::open(['id' => 'allocate'])}}
+				{{Form::open(['id' => 'allocform'])}}
 				<div class=" form-group row">
 					{{Form::label('campus_id', 'Campus:', ['class' => 'col-3 col-form-label text-md-left'])}}
 					<div class="col">
@@ -44,7 +45,7 @@
 					{{Form::label('type', 'Type:', ['class' => 'col-3 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="type" id="type" class="form-control" readonly>
-							<option value="{{$student->type}}"><?= ($student->gender == 1)? 'Male' : 'Female' ?></option>
+							<option value="{{$student->gender}}" ><?= ($student->gender == 1)? 'Male' : 'Female' ?></option>
 						</select>
 					</div>
 				</div>
@@ -100,21 +101,23 @@
 	$(function(){
 		
 		//select box manipulation
+let 	campus_id = $('#campus_id'),
+		type = $('#type'),
+		hostel = $('#hostel_id'),
+		floor = $('#floor'),
+		room = $('#room_no'),
+		selected = $("#floor option[value='x']"),
+		submit  = $("input[type='submit']"),
+		first = $('#first'),
+		second = $('#second'),
+		third = $('#third'),
+		fourth = $('#fourth'),
+		toggle = $('.toggle').detach(),
+		disabled,
+		notDisabled,
+		Space;
 		
-		let hostel = $('#hostel_id');
-		let floor = $('#floor');
-		let room = $('#room_no');
-		let selected = $("#floor option[value='x']");
-		let submit  = $("input[type='submit']");
-		let first = $('#first');
-		let second = $('#second');
-		let third = $('#third');
-		let fourth = $('#fourth');
-		let disabled;
-		let notDisabled;
-		let Space;
-		let toggle = $('.toggle').detach();
-		
+		toggle.css('display', 'block');
 		function toggleBed(){
 			if(toggle == null || toggle.length == 0){
 				toggle = $('.toggle').detach();
@@ -123,9 +126,9 @@
 		
 		hostel.change(function(){
 			toggleBed();
-			//reset the floor option
+			//reset the following
 			selected.attr('selected', '');
-			room.html("<option value = ''>Select Room</option>").attr('disabled','');
+			room.html("<option value = ''>Select Room Number</option>").attr('disabled','');
 			
 			submit.attr('disabled', '');
 			if(hostel.val()){
@@ -141,16 +144,18 @@
 		
 		floor.change(function(){
 			toggleBed();
-			let url = "{{route('allocate.getfloor')}}";
-			if(room.val()){
-				submit.attr('disabled', '');
-			}
+			let url = "{{route('allocate.getrooms')}}";
+			submit.attr('disabled', '');
+			room.html("<option value = ''>Select Room Number</option>").attr('disabled','');
+			
 			let data = {
+				campus_id: campus_id.val(),
+				type : type.val(),
 				hostel_id: hostel.val(),
 				floor: floor.val()
 			}
 			
-			room.html("<option value = ''>Select Room</option>").attr('disabled','');
+
 			$.ajax({
 				method: 'GET',
 				url:url,
@@ -175,16 +180,19 @@
 		});
 		
 		//generate bed-spaces
-		$('#allocate').submit(function(e){
+		$('#allocform').submit(function(e){
 			e.preventDefault();
 			
 			let uri = "{{route('allocate.getBed')}}";
-			data = {
+			
+			let data = {
+				campus_id :campus_id.val(),
+				type :type.val(),
 				hostel_id: hostel.val(),
 				floor: floor.val(),
-				room_no: room.val(),
+				room_no : room.val()
 			}
-			
+
 			
 			$.ajax({
 				method: 'GET',
@@ -195,7 +203,8 @@
 						toggle.appendTo($('.parent'));
 					}
 					toggle = null;
-					
+					$('.bed').off('click');
+
 					if(data.first > 0){
 						first.addClass('disabled');
 						first.removeClass('bg-success');
@@ -226,11 +235,13 @@
 					}
 					disabled = $('.disabled');
 					notDisabled = $('a.bed:not(.disabled)');
+
 					clickHandler();
 					
 				}
 			});
 		});
+
 		//disable click on .disableds
 		function clickHandler (){
 			disabled.click(function(e){
@@ -241,6 +252,16 @@
 				e.preventDefault();
 				//gets the space selected
 				space = $(this).attr('id');
+				let da = {
+					campus_id:campus_id.val(),
+					type:type.val(),
+					hostel_id: hostel.val(),
+					floor: floor.val(),
+					room_no: room.val(),
+					space: space
+				}
+				
+				console.log(da);
 			});
 		}
 		

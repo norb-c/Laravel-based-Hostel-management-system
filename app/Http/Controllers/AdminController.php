@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Allocate;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+		$hostellers = Allocate::all();
+        return view('admin.dashboard')->withHostellers($hostellers);
     }
 }

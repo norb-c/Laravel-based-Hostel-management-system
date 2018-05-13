@@ -10,12 +10,8 @@ img.slide-item {
 	margin: auto;
 }
 
-.bed-none {
+.toggle {
 	display: none;
-}
-
-.bed-display {
-	display: inline-block;
 }
 
 .disabled {

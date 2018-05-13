@@ -10,15 +10,13 @@
                 <div class="card-header">Admin DashBoard</div>
 
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-						  @endif
 						  @component('components.who')
 						  @endcomponent
                 </div>
-            </div>
+				</div>
+				@foreach ($hostellers as $hosteller)
+					 <p>{{$hosteller->user->email}}</p>
+				@endforeach
         </div>
     </div>
 </div>
