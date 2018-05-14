@@ -28,6 +28,7 @@ class CreateAllocatesTable extends Migration
 			$table->unsignedInteger('floor');
 			$table->unsignedInteger('room_no');
 			$table->string('bed');
+			$table->string('receipt');
 			$table->timestamps();
 		});
 		

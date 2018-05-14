@@ -27,6 +27,8 @@ Route::prefix('student')->group(function(){
 	Route::get('/allocate', 'AllocateController@index')->name('allocate.index');
 	Route::get('/allocate/getRooms', 'AllocateController@getRooms')->name('allocate.getrooms');
 	Route::get('/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
+	Route::get('/allocate/check', 'AllocateController@check')->name('allocate.check');
+	Route::post('/allocate/allocate', 'AllocateController@allocate')->name('allocate.allocate');
 });
 
 

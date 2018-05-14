@@ -99,9 +99,16 @@
 <script>
 	
 	$(function(){
+		let name = "{{ $student->name.' '.$student->surname }}",
+		email = "{{$student->email}}",
+		campus = "{{$student->campus->name}}",
+		phone = "{{$student->phone}}",
+		reg = "{{$student->regno}}",
+		depart = "{{$student->department}}",
+		token = "{{Session::token()}}";
 		
 		//select box manipulation
-let 	campus_id = $('#campus_id'),
+		let 	campus_id = $('#campus_id'),
 		type = $('#type'),
 		hostel = $('#hostel_id'),
 		floor = $('#floor'),
@@ -114,7 +121,8 @@ let 	campus_id = $('#campus_id'),
 		fourth = $('#fourth'),
 		toggle = $('.toggle').detach(),
 		disabled,
-		notDisabled,
+		hostelText,
+		enabled,
 		Space;
 		
 		toggle.css('display', 'block');
@@ -140,6 +148,7 @@ let 	campus_id = $('#campus_id'),
 			}
 			//clear the selected attr for reselection
 			selected.removeAttr('selected');
+			hostelText = $('option:selected', this).text();
 		});
 		
 		floor.change(function(){
@@ -155,7 +164,7 @@ let 	campus_id = $('#campus_id'),
 				floor: floor.val()
 			}
 			
-
+			
 			$.ajax({
 				method: 'GET',
 				url:url,
@@ -177,6 +186,7 @@ let 	campus_id = $('#campus_id'),
 			}else{
 				submit.attr('disabled', '');
 			}
+			
 		});
 		
 		//generate bed-spaces
@@ -192,7 +202,7 @@ let 	campus_id = $('#campus_id'),
 				floor: floor.val(),
 				room_no : room.val()
 			}
-
+			
 			
 			$.ajax({
 				method: 'GET',
@@ -204,7 +214,7 @@ let 	campus_id = $('#campus_id'),
 					}
 					toggle = null;
 					$('.bed').off('click');
-
+					
 					if(data.first > 0){
 						first.addClass('disabled');
 						first.removeClass('bg-success');
@@ -234,22 +244,24 @@ let 	campus_id = $('#campus_id'),
 						fourth.addClass('bg-success');
 					}
 					disabled = $('.disabled');
-					notDisabled = $('a.bed:not(.disabled)');
-
+					enabled = $('a.bed:not(.disabled)');
+					
 					clickHandler();
 					
 				}
 			});
 		});
-
+		
 		//disable click on .disableds
 		function clickHandler (){
 			disabled.click(function(e){
 				e.preventDefault();
 			});
 			
-			notDisabled.click(function(e){
+			enabled.click(function(e){
+				
 				e.preventDefault();
+				let urii = "{{route('allocate.check')}}";
 				//gets the space selected
 				space = $(this).attr('id');
 				let da = {
@@ -260,11 +272,86 @@ let 	campus_id = $('#campus_id'),
 					room_no: room.val(),
 					space: space
 				}
-				
-				console.log(da);
+				//checks the room is stil available
+				$.ajax({
+					method: 'GET',
+					url:urii,
+					data:da,
+					success: function(data){
+						if(data > 0){
+							//error
+							alert('Space has taken please refresh the page');
+						}else if(data == 0){
+							//paystack
+							payWithPaystack();
+							
+						}
+					}
+				});
 			});
 		}
 		
+		function payWithPaystack(){
+			var handler = PaystackPop.setup({
+				key: 'pk_test_81e179b9b83f22f85a2c30c038cd957dbc21b369',
+				email: email,
+				amount: 10000,
+				ref: ''+Math.floor((Math.random() * 1000000000) + 1), 
+				metadata: {
+					custom_fields: [{
+						display_name: "Full Name",
+						variable_name: "full_name",
+						value: name
+					}, {
+						display_name: "Campus",
+						variable_name: "campus",
+						value:campus
+					}, {
+						display_name: "Hostel",
+						variable_name: "hostel",
+						value: hostelText
+					},{
+						display_name: "Department",
+						variable_name: "department",
+						value: depart
+					},
+					{
+						display_name: "Registration Number",
+						variable_name: "reg_no",
+						value: reg
+					},{
+						display_name: "Phone Number",
+						variable_name: "phone_no",
+						value: phone
+					}]
+				},
+				callback: function(response){
+					let urll = "{{route('allocate.allocate')}}";
+					let dat = {
+						campus_id:campus_id.val(),
+						hostel_id: hostel.val(),
+						type:type.val(),
+						floor: floor.val(),
+						room_no: room.val(),
+						space: space,
+						receipt:response.reference,
+						_token:token
+					}
+					$.ajax({
+						method:'POST',
+						url:urll,
+						data:dat,
+						success: function(data){
+							console.log(data);
+						}
+					})
+				},
+				onClose: function(){
+					alert('window closed');
+				}
+			});
+			handler.openIframe();
+		}
 	});
 </script>
 
