@@ -10,10 +10,10 @@
                 <div class="card-header">UsersDashboard</div>
 					
                 <div class="card-body">
-					 <a href="{{route('allocate.index')}}" class="btn btn-primary">Allocate</a>
                    @component('components.who')
 						 @endcomponent
-                </div>
+					 </div>
+					 {{print_r($hosteller->campus->name)}}
             </div>
         </div>
     </div>

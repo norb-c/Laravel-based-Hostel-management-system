@@ -282,6 +282,8 @@
 							//error
 							alert('Space has taken please refresh the page');
 						}else if(data == 0){
+							//add loading effects
+
 							//paystack
 							payWithPaystack();
 							
@@ -342,6 +344,7 @@
 						url:urll,
 						data:dat,
 						success: function(data){
+							//redirect
 							console.log(data);
 						}
 					})

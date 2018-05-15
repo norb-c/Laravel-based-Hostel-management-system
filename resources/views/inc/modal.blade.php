@@ -38,7 +38,7 @@
 				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Close</button>
-					{{Form::submit('Create Room', ['class' => 'btn btn-block btn-success mt-0'])}}
+					{{Form::submit('Save', ['class' => 'btn btn-block btn-success mt-0'])}}
 				</div>
 			</div>
 			{{Form::close()}}

@@ -19,7 +19,7 @@
 
                                 @if ($errors->has('regno'))
                                     <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('regno') }}</strong>
                                     </span>
                                 @endif
                             </div>

@@ -32,7 +32,7 @@
 					<td>{{$room->room_no}}</td>
 					<td>
 						<span class="mx-3">{{$room->available}}</span>
-						<button class="btn btn-sm btn-outline-primary btnupd" data-id ="{{$room->id}}">Update</button>  
+						<button class="btn btn-sm btn-outline-primary btnupd" data-id ="{{$room->id}}">Update Bed Space</button>  
 					</td>
 					<td></td>
 				</tr>

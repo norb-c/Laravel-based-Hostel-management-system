@@ -140,6 +140,8 @@ class AllocateController extends Controller
 		}
 		$bed_json = json_encode($newbed);
 		$bedrow->decrement('available', 1, ['bed' => $bed_json]);
+		
+		//send email
 	
 		return response()->json('success');
 	}
