@@ -31,7 +31,11 @@ Route::prefix('student')->group(function(){
 	Route::post('/allocate/allocate', 'AllocateController@allocate')->name('allocate.allocate');
 });
 
+Route::get('/mail', function () {
+	$mail = App\Allocate::where('user_id', 1)->first();
 
+	return new App\Mail\AllocatesEmail($mail);
+});
 
 
 

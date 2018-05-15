@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Jobs\AllocatsSendEmail;
 use App\Allocate;
 use App\User;
 use App\Room;
@@ -140,9 +141,12 @@ class AllocateController extends Controller
 		}
 		$bed_json = json_encode($newbed);
 		$bedrow->decrement('available', 1, ['bed' => $bed_json]);
-		
+
 		//send email
-	
+		$mail = Allocate::where('user_id', $user_id)->first();
+		
+		AllocatsSendEmail::dispatch($mail);
+
 		return response()->json('success');
 	}
 }
