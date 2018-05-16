@@ -67,5 +67,5 @@ Route::prefix('admin')->group(function(){
 	//bed
 	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
 	Route::post('/bed/update', 'RoomController@bedUpdate')->name('bed.update');
-	
+	Route::put('/rooms/updatephoto/{id}', 'RoomController@updatephoto');
 });

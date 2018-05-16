@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Room;
 use Session;
+use App\Allocate;
+use App\User;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 
@@ -93,7 +96,16 @@ class RoomController extends Controller
 		*/
 		public function show(Room $room)
 		{
-			//
+			$arr = json_decode($room->bed);
+			$arr2 = [];
+			foreach ($arr as $key => $value) {
+				if($value){
+					array_push($arr2,$value);
+				}
+			}
+			
+			$occupant = Allocate::whereIn('user_id', $arr2)->get();
+			return view('admin.rooms.show')->withOccupants($occupant);
 		}
 		
 		/**
@@ -160,19 +172,61 @@ class RoomController extends Controller
 			* @param  \App\Room  $room
 			* @return \Illuminate\Http\Response
 			*/
-			public function update(Request $request, Room $room)
+			public function update(Request $request, $id)
 			{
-				//
+				
+				$this->validate($request,[
+					'name' => 'required|string|max:30',
+					'surname' => 'required|string|max:30',
+					'email' => 'required|email|unique:users,email,'.$id,
+					'department' => 'required|string|max:50',
+					'regno' => 'required|numeric|unique:users,regno,'.$id,		
+					'phone' => 'required|numeric',
+					'address' => 'required|string|max:255',
+					'state' => 'required|string|max:30',
+					'nok' => 'required|string|max:255',
+					'nokno' => 'required|numeric',
+					]);
+					$user = User::find($id);
+					
+					$user->update($request->all());
+					
+					return back()->with('success','Updated Successfully');
+				}
+				
+				public function updatephoto(Request $request, $id){
+					$this->validate($request, [
+						'passsport' => 'image|max:1999'
+					]);
+
+
+					$user = User::find($id);
+
+					if($request->hasFile('passport')){
+
+						Storage::delete('public/passport/'.$user->passport);
+
+						$file = $request->file('passport');
+						$filenameWithExt = $file->getClientOriginalName();
+						$filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+						$extension = $file->extension();
+						$fileNameToStore = $filename.'_'.time().'.'.$extension;
+						//upload image
+						$path = $file->storeAs('public/passport',$fileNameToStore);
+						$user->update(['passport' => $fileNameToStore]);
+					}
+				
+					return back()->with('success','Passport Updated Successfully');
+				}
+				
+				/**
+				* Remove the specified resource from storage.
+				*
+				* @param  \App\Room  $room
+				* @return \Illuminate\Http\Response
+				*/
+				public function destroy(Room $room)
+				{
+					//
+				}
 			}
-			
-			/**
-			* Remove the specified resource from storage.
-			*
-			* @param  \App\Room  $room
-			* @return \Illuminate\Http\Response
-			*/
-			public function destroy(Room $room)
-			{
-				//
-			}
-		}

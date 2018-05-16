@@ -9,12 +9,12 @@
 	
 	
 	<div class="col-md-7">
-		<table class="table-bordered table-striped table">
-			<thead class="table-info">
+		<table id = "room" class="table-bordered table-striped table">
+			<thead class="table-primary">
 				<th>Floor</th>
 				<th>Room Num.</th>
 				<th>Bed Space Avail.</th>
-				<th>Edit Bed Space</th>
+				<th>View Occupants</th>
 			</thead>
 			<tbody>
 				@foreach ($rooms as $room)
@@ -34,7 +34,7 @@
 						<span class="mx-3">{{$room->available}}</span>
 						<button class="btn btn-sm btn-outline-primary btnupd" data-id ="{{$room->id}}">Update Bed Space</button>  
 					</td>
-					<td></td>
+				<td><a href="{{route('rooms.show',$room->id)}}" class="btn btn-block btn-sm btn-outline-primary">View</a></td>
 				</tr>
 				@endforeach
 				
@@ -221,7 +221,8 @@
 				}
 			}
 		}
-		
+
+    $('#room').DataTable();
 	});
 	
 </script>

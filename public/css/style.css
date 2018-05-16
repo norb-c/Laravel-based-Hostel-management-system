@@ -23,3 +23,38 @@ a.disabled:hover {
 	text-decoration: none;
 	background-color: #9a9da0 !important;
 }
+
+/*admin*/
+
+.sticky-top {
+	margin-top: 100px;
+	top: 50px;
+}
+
+.caps {
+	text-transform: capitalize;
+}
+
+p:not(.email) {
+	text-transform: capitalize;
+}
+
+.custom-file-control {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 5;
+	height: 2.5rem;
+	padding: .5rem 1rem;
+	line-height: 1.5;
+	color: #495057;
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, .15);
+	border-radius: .25rem;
+}

@@ -26,9 +26,9 @@ class HomeController extends Controller
 	{
 		$user_id = auth()->user()->id;
 		$hosteller = Allocate::where('user_id', $user_id)->first();
-		// if($hosteller){
-		// 	return view('home')->with('hosteller', $hosteller);
-		// }
+		if($hosteller){
+			return view('home')->with('hosteller', $hosteller);
+		}
 		return redirect()->route('allocate.index');
 	}
 }

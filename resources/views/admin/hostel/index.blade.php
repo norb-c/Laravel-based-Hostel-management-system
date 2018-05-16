@@ -9,7 +9,7 @@
 	
 	
 	<div class="col-md-8">
-		<table class="table table-bordered table-striped">
+		<table id = "hostel" class="table table-bordered table-striped">
 			<thead>
 				<th>#</th>
 				<th>Name</th>
@@ -100,3 +100,7 @@
 	</div>
 </div>
 @endsection
+
+<script>
+
+</script>

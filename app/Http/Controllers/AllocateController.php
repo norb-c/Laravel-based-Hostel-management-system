@@ -145,6 +145,7 @@ class AllocateController extends Controller
 		//send email
 		$mail = Allocate::where('user_id', $user_id)->first();
 		
+		//queues the email for sending in background
 		AllocatsSendEmail::dispatch($mail);
 
 		return response()->json('success');
