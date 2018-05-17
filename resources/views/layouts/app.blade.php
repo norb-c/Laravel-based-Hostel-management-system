@@ -11,7 +11,7 @@
 		
 		@yield('nav')
 
-		@include('inc.message')
+		@include('inc.alert')
 		
 		@endif
 		

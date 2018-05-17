@@ -31,4 +31,10 @@ class HomeController extends Controller
 		}
 		return redirect()->route('allocate.index');
 	}
+	public function show($id){
+
+		$student = Allocate::where('user_id', $id)->first();
+		return view('student.profile')->with('student', $student);
+	}
+
 }

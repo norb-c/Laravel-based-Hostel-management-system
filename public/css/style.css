@@ -10,6 +10,14 @@ img.slide-item {
 	margin: auto;
 }
 
+/* all */
+
+.img-fluid {
+	max-height: 350px;
+}
+
+/* allocate */
+
 .toggle {
 	display: none;
 }
@@ -57,4 +65,8 @@ p:not(.email) {
 	background-color: #fff;
 	border: 1px solid rgba(0, 0, 0, .15);
 	border-radius: .25rem;
+}
+
+svg.svg-inline--fa {
+	font-size: 1.2rem;
 }

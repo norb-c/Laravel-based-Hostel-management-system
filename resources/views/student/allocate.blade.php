@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('nav')
-@include('inc.nav')
+@include('inc.nav-alloc')
 @endsection
 
 

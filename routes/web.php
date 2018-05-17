@@ -25,10 +25,16 @@ Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout
 Route::prefix('student')->group(function(){
 	//hostel allocation
 	Route::get('/allocate', 'AllocateController@index')->name('allocate.index');
-	Route::get('/allocate/getRooms', 'AllocateController@getRooms')->name('allocate.getrooms');
-	Route::get('/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
-	Route::get('/allocate/check', 'AllocateController@check')->name('allocate.check');
-	Route::post('/allocate/allocate', 'AllocateController@allocate')->name('allocate.allocate');
+	Route::get('/allocate', 'AllocateController@getRooms')->name('allocate.getrooms');
+	Route::get('/allocate', 'AllocateController@getBed')->name('allocate.getBed');
+	Route::get('/allocate', 'AllocateController@check')->name('allocate.check');
+	Route::post('/allocate', 'AllocateController@allocate')->name('allocate.allocate');
+	Route::get('/profile/{id}', 'HomeController@show')->name('profile.show');
+	// Route::put('/profile/{id}', 'HomeController@edit')->name('profile.edit');
+
+	Route::post('/message', 'MessageController@stdstore')->name('message.stdstore');
+	Route::get('/message/{id}', 'MessageController@stdshow')->name('message.stdshow');
+	
 });
 
 Route::get('/mail', function () {

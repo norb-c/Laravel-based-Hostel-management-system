@@ -15,6 +15,8 @@ class RoomController extends Controller
 	
 	public function __construct(){
 		$this->middleware('auth:admin');
+		$this->middleware('auth')->only(['update', 'updatephoto']);
+
 	}
 	/**
 	* Display a listing of the resource.
