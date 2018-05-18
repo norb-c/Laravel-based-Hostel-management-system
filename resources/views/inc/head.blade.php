@@ -15,9 +15,8 @@
 	<!-- Styles -->
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css"/>
-	
-	
+	<link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 	<!-- scripts -->
 	<script src="{{ asset('js/app.js') }}"></script>
+	
 </head>

@@ -7,7 +7,6 @@
 
 <div class="row">
 	
-	
 	<div class="col-md-8">
 		<table id = "hostel" class="table table-bordered table-striped">
 			<thead>
@@ -33,16 +32,10 @@
 					@default
 					@endswitch
 					<td>
-						<div class="row">
-							<div class="col-md-6">
-								<a href="{{route("hostels.show",$hostel->id)}}" class="btn btn-block btn-sm btn-primary">Rooms</a>							
-							</div>
-							<div class="col-md-6">
-								{{Form::open(['action' => ['HostelController@destroy',$hostel->id], 'method' => 'DELETE'])}}
-								{{Form::submit('Delete', ['class' => 'btn btn-sm btn-block btn-danger '])}}
-								{{Form::close()}}
-							</div>
-						</div>
+						<a href="{{route("hostels.show",$hostel->id)}}" class="btn btn-sm btn-primary">Rooms</a>							
+						{{Form::open(['action' => ['HostelController@destroy',$hostel->id], 'method' => 'DELETE', 'class' => 'd-inline'])}}
+						{{Form::submit('Delete', ['class' => 'btn btn-sm btn-danger '])}}
+						{{Form::close()}}
 					</td>
 				</tr> 
 				@endforeach
@@ -99,8 +92,13 @@
 		
 	</div>
 </div>
+<script>
+	$(function(){
+		$('#hostel').DataTable();
+	});
+</script>
 @endsection
 
 <script>
-
+	
 </script>

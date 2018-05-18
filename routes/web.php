@@ -32,8 +32,8 @@ Route::prefix('student')->group(function(){
 	Route::get('/profile/{id}', 'HomeController@show')->name('profile.show');
 	// Route::put('/profile/{id}', 'HomeController@edit')->name('profile.edit');
 
-	Route::post('/message', 'MessageController@stdstore')->name('message.stdstore');
-	Route::get('/message/{id}', 'MessageController@stdshow')->name('message.stdshow');
+	Route::post('/message', 'studentMessageController@stdstore')->name('stdmsg.store');
+	Route::get('/message/{id}', 'studentMessageController@stdshow')->name('stdmsg.show');
 	
 });
 
@@ -74,4 +74,9 @@ Route::prefix('admin')->group(function(){
 	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
 	Route::post('/bed/update', 'RoomController@bedUpdate')->name('bed.update');
 	Route::put('/rooms/updatephoto/{id}', 'RoomController@updatephoto');
+
+	//complains
+	Route::get('/complains', 'AdminMessageController@adminindex')->name('adminmsg.index');
+	Route::get('/complains/{id}/{user_id}', 'AdminMessageController@adminshow')->name('adminmsg.show');
+	Route::delete('/complains/{id}', 'AdminMessageController@admindestroy')->name('adminmsg.destroy');
 });

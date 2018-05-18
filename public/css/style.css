@@ -34,9 +34,38 @@ a.disabled:hover {
 
 /*admin*/
 
+img.circle {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border-color: black;
+	background-color: white;
+	vertical-align: middle;
+}
+
 .sticky-top {
 	margin-top: 100px;
 	top: 50px;
+}
+
+div.msg-card {
+	background-color: #fff;
+	border-radius: 10px;
+}
+
+a.hint-link {
+	color: #242a30;
+	text-decoration: none;
+	transition: 0.3s;
+}
+
+a.hint-link:hover {
+	color: rgb(150, 141, 141);
+}
+
+p.msg-hint {
+	margin: 0;
+	font-size: 12px;
 }
 
 .caps {

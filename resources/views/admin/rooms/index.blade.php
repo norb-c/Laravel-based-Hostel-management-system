@@ -136,6 +136,7 @@
 	
 	$(function(){
 		
+		$('#room').DataTable();
 		//remove the class for adding avail. room
 		$('#update').on('hidden.bs.modal', function (e) {
 			setTimeout(() => {
@@ -222,7 +223,6 @@
 			}
 		}
 
-    $('#room').DataTable();
 	});
 	
 </script>

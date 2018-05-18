@@ -20,7 +20,7 @@
 				<li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
 				<li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
 				@else
-				<a href="{{route('message.stdshow',Auth::user()->id)}}" class="nav-link">Complains</a>
+				<a href="{{route('stdmsg.show',Auth::user()->id)}}" class="nav-link">Complains</a>
 				<li class="nav-item dropdown">
 					<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 						Hello {{ Auth::user()->name }} <span class="caret"></span>

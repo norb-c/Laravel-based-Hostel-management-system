@@ -11,6 +11,9 @@
 				<li class="nav-item active">
 					<a class="nav-link" href="{{route('hostels.index')}}">Hostels</a>
 				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="{{route('adminmsg.index')}}">Complains</a>
+				</li>
 			</ul>
 			
 			<!-- Right Side Of Navbar -->
@@ -37,5 +40,6 @@
 	</div>
 </div>
 </nav>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ asset('js/datatables.min.js') }}"></script>
+
+ 

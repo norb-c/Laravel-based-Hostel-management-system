@@ -83,7 +83,7 @@
 			let msgval = $('#message-text').val();;
 			e.preventDefault();
 			$('#message').modal('toggle');
-			let url = "{{route('message.stdstore')}}";
+			let url = "{{route('stdmsg.store')}}";
 			
 			if(msgval.length > 140){
 				alert('Message too long');
@@ -101,7 +101,7 @@
 					if($('.holder').length == 1){
 						$('.holder').remove();
 					}
-					$('.sent').prepend("<tr><td>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></td></tr>")
+					$('.sent').prepend("<tr><td>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></td></tr>");
 				},
 				error: function(){
 					console.log('Error Occured');

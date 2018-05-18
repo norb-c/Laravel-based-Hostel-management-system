@@ -24,7 +24,7 @@ class CreateMessagesTable extends Migration
 		
 		Schema::table('messages', function (Blueprint $table) {
 			$table->unsignedInteger('user_id')->after('id');
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('user_id')->references('user_id')->on('allocates');
 		});
 	}
 	
@@ -36,5 +36,9 @@ class CreateMessagesTable extends Migration
 	public function down()
 	{
 		Schema::dropIfExists('messages');
+		Schema::table('messages', function (Blueprint $table) {
+			$table->dropForeign('messages_user_id_foreign');
+	  });
+
 	}
 }
