@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-lg-3 col-md-3">
 		<div class="my-4">
-			<a href="" class="btn btn-block btn-primary">View Your Replies</a>
+		<a href="{{route('adminmsg.viewreply')}}" class="btn btn-block btn-primary">View Your Replies</a>
 		</div>
 	</div>
 	<div class="col-lg-9 order-lg-2 mt-5">

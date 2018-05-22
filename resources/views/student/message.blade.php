@@ -29,12 +29,13 @@
 						@foreach ($sentmsg as $msg)
 						<tr>
 							<td class=" p-0 px-3">
+								<input type="hidden" name="id" value = "{{$msg->id}}">
 								<div class="row">
 									<div class="col-1 p-0 text-center align-self-center">
-										<a href="#" class="btn-sm btn text-danger recdel"><i class="fas fa-trash"></i></a>
+										<a href="#" class="btn-sm btn text-danger sentdel"><i class="fas fa-trash"></i></a>
 									</div>
 									<div class="col p-2">
-										{{$msg->message}} <button  class="btn btn-sm btn-success ml-3 read">Mark as Read</button>
+										{{$msg->message}}
 										<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
 									</div>
 								</div>
@@ -98,8 +99,6 @@
 <script>
 	$(function(){
 		let token = "{{Session::token()}}";
-		
-		
 		
 		$('#message-text').keydown(function(){
 			let value =  $('#message-text').val();
@@ -167,51 +166,56 @@
 			e.preventDefault();
 			
 			let uri = "{{route('stdmsg.sentdel')}}";
+			let parents = $(this).parents('tr');
+			let id = $(this).parents('.row').siblings('input').val();
+			let dat = {
+				id:id,
+				_token: token,
+			}
 			
-			// $.ajax({
-				// 	method: 'POST',
-				// 	url:uri,
-				// 	data:dat,
-				// 	success: function(data){
-					// 		console.log(data);
-					// 	},
-					// 	error: function(){
-						// 		alert('An error Occurred');
-						// 	}
-						// });
-					});
+			$.ajax({
+				method: 'POST',
+				url:uri,
+				data:dat,
+				success: function(data){
+					parents.remove();
+					if($('.sent').children().length == 0){
+						$('.sent').html("<tr><td class='text-danger font-weight-bold'>The complains you made will show up here.</td></tr>");
+					}
+				},
+				error: function(){
+					alert('An error Occurred');
+				}
+			});
+		});
+		
+		$('.recdel').click(function(e){
+			e.preventDefault();
+			let parents = $(this).parents('tr');
+			let id = $(this).parents('.row').siblings('input').val();
+			let dat = {
+				id:id,
+				_token: token,
+			}
 					
-					$('.recdel').click(function(e){
-						e.preventDefault();
-						let parents = $(this).parents('td');
-						let id = $(this).parents('.row').siblings('input').val();
-						let dat = {
-							id:id,
-							_token: token,
-						}
-						
-						
-						let uri = "{{route('stdmsg.recdel')}}";
-						$.ajax({
-							method: 'POST',
-							url:uri,
-							data:dat,
-							success: function(data){
-								parents.remove();
-								if($('.recieve').children().length == 0){
-									$('.receive').html("<tr><td class='text-danger font-weight-bold'>Replies to your complains will show up here.</td></tr>");
-								}
-								console.log($('.recieve').children().length == 0);
-								console.log($('.recieve').children());
-							},
-							error: function(){
-								alert('An error Occurred');
-							}
-						});
-					});
-					
-				});
-				
-			</script>
-			@endsection
-			
+			let uri = "{{route('stdmsg.recdel')}}";
+			$.ajax({
+				method: 'POST',
+				url:uri,
+				data:dat,
+				success: function(data){
+					parents.remove();
+					if($('.recieve').children().length == 0){
+						$('.recieve').html("<tr><td class='text-danger font-weight-bold'>Replies to your complains will show up here.</td></tr>");
+					}
+				},
+				error: function(){
+					alert('An error Occurred');
+				}
+			});
+		});
+		
+	});
+	
+</script>
+@endsection

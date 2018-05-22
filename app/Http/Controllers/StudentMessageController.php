@@ -72,9 +72,9 @@ class StudentMessageController extends Controller
 		return response('success');
 	}
 
-	// public function stdSentdel(Request $request){
-	// 	Message::find($request->id)->update(['sent_del' => 1]);
-	// 	return response('success');
-	// }
+	public function stdSentdel(Request $request){
+		Message::find($request->id)->update(['sent_del' => 1]);
+		return response('success');
+	}
 
 }

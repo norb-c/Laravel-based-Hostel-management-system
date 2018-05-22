@@ -55,8 +55,13 @@ class AdminMessageController extends Controller
 			return redirect()->route('adminmsg.index')->with('success', 'Message sent Successfullly');
 		}
 
+
+		public function viewReply(){
+			return view('admin.message.viewreply');
+		}
+
 		public function admindestroy(){
-			
+
 		}
 		
 	

@@ -82,4 +82,5 @@ Route::prefix('admin')->group(function(){
 	Route::get('/message/{id}/{user_id}', 'AdminMessageController@adminshow')->name('adminmsg.show');
 	Route::delete('/message/{id}', 'AdminMessageController@admindestroy')->name('adminmsg.destroy');
 	Route::post('/message', 'AdminMessageController@adminreply')->name('adminmsg.reply');
+	Route::get('/message/view', 'AdminMessageController@viewReply')->name('adminmsg.viewreply');
 });
