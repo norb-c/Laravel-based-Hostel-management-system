@@ -25,8 +25,18 @@
 	<div class="col-lg-8 order-lg-2 mt-5">
 		<div class="card w-75">
 			<div class="card-body">
-				<h5 class="card-title">Card title</h5>
-				<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+				<h5 class="card-title">Message</h5><hr>
+				<p class="card-text">{{$msg->message}}</p><hr>
+				{{Form::open(['route' => ['adminmsg.reply'], 'method' => 'POST'])}}
+				<div class="form-group">
+				<input type="hidden" name="user_id" value="{{$msg->user_id}}">
+				<input type="hidden" name="id" value="{{$msg->id}}">
+					<textarea name="message" id="message" rows="5" class="form-control" placeholder="Write a Reply"></textarea>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Send" class="btn btn-success float-right">
+				</div>
+				{{Form::close()}}
 			</div>
 		</div>
 	</div>

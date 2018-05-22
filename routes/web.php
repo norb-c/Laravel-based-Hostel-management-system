@@ -28,7 +28,15 @@ Route::prefix('student')->group(function(){
 	Route::get('/allocate/getRooms', 'AllocateController@getRooms')->name('allocate.getrooms');
 	Route::get('/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
 	Route::get('/allocate/check', 'AllocateController@check')->name('allocate.check');
-	Route::post('/allocate/allocate', 'AllocateController@allocate')->name('allocate.allocate');
+	Route::post('/allocate', 'AllocateController@allocate')->name('allocate.allocate');
+	Route::get('/profile/{id}', 'HomeController@show')->name('profile.show');
+
+	Route::post('/message', 'studentMessageController@stdStore')->name('stdmsg.store');
+	Route::get('/message/{id}', 'studentMessageController@stdShow')->name('stdmsg.show');
+	Route::post('/message/read', 'studentMessageController@stdRead')->name('stdmsg.read');
+	Route::post('/message/sentdel', 'studentMessageController@stdSentdel')->name('stdmsg.sentdel');
+	Route::post('/message/recdel', 'studentMessageController@stdRecdel')->name('stdmsg.recdel');
+	
 });
 
 Route::get('/mail', function () {
@@ -67,5 +75,11 @@ Route::prefix('admin')->group(function(){
 	//bed
 	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
 	Route::post('/bed/update', 'RoomController@bedUpdate')->name('bed.update');
-	
+	Route::put('/rooms/updatephoto/{id}', 'RoomController@updatephoto');
+
+	//complains
+	Route::get('/message', 'AdminMessageController@adminindex')->name('adminmsg.index');
+	Route::get('/message/{id}/{user_id}', 'AdminMessageController@adminshow')->name('adminmsg.show');
+	Route::delete('/message/{id}', 'AdminMessageController@admindestroy')->name('adminmsg.destroy');
+	Route::post('/message', 'AdminMessageController@adminreply')->name('adminmsg.reply');
 });

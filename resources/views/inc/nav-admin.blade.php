@@ -12,7 +12,7 @@
 					<a class="nav-link" href="{{route('hostels.index')}}">Hostels</a>
 				</li>
 				<li class="nav-item active">
-					<a class="nav-link" href="{{route('adminmsg.index')}}">Complains</a>
+					<a class="nav-link" href="{{route('adminmsg.index')}}">Messages</a>
 				</li>
 			</ul>
 			
@@ -21,7 +21,7 @@
 				<!-- Authentication Links -->
 				<li class="nav-item dropdown">
 					<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-							Hello {{ Auth::user()->name }} <span class="caret"></span>
+						Hello {{ Auth::user()->name }} <span class="caret"></span>
 					</a>
 					
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -42,4 +42,4 @@
 </nav>
 <script src="{{ asset('js/datatables.min.js') }}"></script>
 
- 
+

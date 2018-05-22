@@ -18,7 +18,7 @@ class StudentMessageController extends Controller
 	* @param  \Illuminate\Http\Request  $request
 	* @return \Illuminate\Http\Response
 	*/
-	public function stdstore(Request $request)
+	public function stdStore(Request $request)
 	{
 	$this->validate($request, [
 		'message' => 'required|max:140',
@@ -29,12 +29,12 @@ class StudentMessageController extends Controller
 		$message->student = 1;
 		$message->admin = 0;
 		
-	$message->save();
+		$message->save();
 	
 	$sentmsg = Message::where([
 		['user_id', '=', auth()->user()->id],
 		['student', '=', 1]
-		])->orderBy('created_at', 'desc')->first();
+	])->orderBy('created_at', 'desc')->first();
 		
 		return response()->json($sentmsg);
 	}
@@ -45,18 +45,36 @@ class StudentMessageController extends Controller
 	* @param  \App\StudentMessage  $studentMessage
 	* @return \Illuminate\Http\Response
 	*/
-	public function stdshow($id)
+	public function stdShow($id)
 	{
 		$sentmsg = Message::where([
 			['user_id', '=', $id],
+			['sent_del', '=', 0],
 			['student', '=', 1]
-			])->orderBy('created_at', 'desc')->paginate(10);
+		])->orderBy('created_at', 'desc')->paginate(10);
 			
-			$recmsg = Message::where([
-				['user_id', '=', $id],
-				['admin', '=', 1]
-				])->orderBy('created_at', 'desc')->paginate(10);
+		$recmsg = Message::where([
+			['user_id', '=', $id],
+			['rec_del', '=', 0],
+			['admin', '=', 1]
+		])->orderBy('created_at', 'desc')->paginate(10);
 				
-				return view('student.message')->withSentmsg($sentmsg)->withRecmsg($recmsg);
+		return view('student.message')->withSentmsg($sentmsg)->withRecmsg($recmsg);
 	}
+
+	public function stdRead(Request $request){
+		Message::find($request->id)->update(['stdview' => 1]);
+		return response('success');
+	}
+
+	public function stdRecdel(Request $request){
+		Message::find($request->id)->update(['rec_del' => 1, 'stdview' => 1]);
+		return response('success');
+	}
+
+	// public function stdSentdel(Request $request){
+	// 	Message::find($request->id)->update(['sent_del' => 1]);
+	// 	return response('success');
+	// }
+
 }

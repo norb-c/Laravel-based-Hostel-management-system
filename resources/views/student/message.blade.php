@@ -23,13 +23,21 @@
 		</ul>
 		<div class="tab-content py-4">
 			<div class="tab-pane active" id="sent">
-				<table class="table table-hover table-striped">
+				<table class="table table-striped">
 					<tbody class="sent">
 						@if (count($sentmsg))
 						@foreach ($sentmsg as $msg)
 						<tr>
-							<td>
-								{{$msg->message}}<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+							<td class=" p-0 px-3">
+								<div class="row">
+									<div class="col-1 p-0 text-center align-self-center">
+										<a href="#" class="btn-sm btn text-danger recdel"><i class="fas fa-trash"></i></a>
+									</div>
+									<div class="col p-2">
+										{{$msg->message}} <button  class="btn btn-sm btn-success ml-3 read">Mark as Read</button>
+										<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+									</div>
+								</div>
 							</td>
 						</tr>
 						@endforeach
@@ -46,13 +54,30 @@
 				{{$sentmsg->links()}}
 			</div>
 			<div class="tab-pane" id="recieved">
-				<table class="table table-hover table-striped">
-					<tbody>
+				<table class="table table-striped">
+					<tbody class="recieve">
 						@if (count($recmsg))
 						@foreach ($recmsg as $msg)
 						<tr>
-							<td>
-								<div>{{$msg->message}}</div><span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+							<td class="notify-parent p-0 px-3">
+								@if ($msg->stdview == 0)
+								<span class="badge badge-pill badge-danger notify-std">!</span>
+								@endif
+								<input type="hidden" name="id" value = "{{$msg->id}}">
+								
+								<div class="row">
+									<div class="col-1 p-0 text-center align-self-center">
+										<a href="#" class="btn-sm btn text-danger recdel"><i class="fas fa-trash"></i></a>
+									</div>
+									<div class="col p-2">
+										@if ($msg->stdview == 1)
+										{{$msg->message}}
+										@else
+										{{$msg->message}} <button  class="btn btn-sm btn-success ml-3 read">Mark as Read</button>
+										@endif					
+										<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+									</div>
+								</div>
 							</td>
 						</tr>
 						@endforeach
@@ -72,6 +97,10 @@
 </div>
 <script>
 	$(function(){
+		let token = "{{Session::token()}}";
+		
+		
+		
 		$('#message-text').keydown(function(){
 			let value =  $('#message-text').val();
 			let remain = 140 - value.length;
@@ -101,7 +130,7 @@
 					if($('.holder').length == 1){
 						$('.holder').remove();
 					}
-					$('.sent').prepend("<tr><td>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></td></tr>");
+					$('.sent').prepend("<tr><td class='p-0 px-3'><div class='row'><div class='col-1 p-0 text-center align-self-center'><a href='#' class='btn-sm btn text-danger recdel'><i class='fas fa-trash'></i></a></div><div class='col p-2'>"+data.message+"<button  class='btn btn-sm btn-success ml-3 read'>Mark as Read</button><span class='float-right font-weight-bold text-success'>Just Now</span></div></div></td></tr>");
 				},
 				error: function(){
 					console.log('Error Occured');
@@ -109,6 +138,80 @@
 			});
 		});
 		
-	});
-</script>
-@endsection
+		$('.read').click(function(e){
+			let readbtn = $(this);
+			let alert = readbtn.parents('.row').siblings('span');
+			let id = readbtn.parents('.row').siblings('input').val();
+			let uri = "{{route('stdmsg.read')}}";
+			
+			let dat = {
+				id:id,
+				_token: token,
+			};
+			
+			$.ajax({
+				method:'POST',
+				url:uri,
+				data:dat,
+				success: function(data){
+					readbtn.remove();
+					alert.remove();
+				},
+				error:function(){
+					alert('An error Ocurred');
+				}
+			});
+		});
+		
+		$('.sentdel').click(function(e){
+			e.preventDefault();
+			
+			let uri = "{{route('stdmsg.sentdel')}}";
+			
+			// $.ajax({
+				// 	method: 'POST',
+				// 	url:uri,
+				// 	data:dat,
+				// 	success: function(data){
+					// 		console.log(data);
+					// 	},
+					// 	error: function(){
+						// 		alert('An error Occurred');
+						// 	}
+						// });
+					});
+					
+					$('.recdel').click(function(e){
+						e.preventDefault();
+						let parents = $(this).parents('td');
+						let id = $(this).parents('.row').siblings('input').val();
+						let dat = {
+							id:id,
+							_token: token,
+						}
+						
+						
+						let uri = "{{route('stdmsg.recdel')}}";
+						$.ajax({
+							method: 'POST',
+							url:uri,
+							data:dat,
+							success: function(data){
+								parents.remove();
+								if($('.recieve').children().length == 0){
+									$('.receive').html("<tr><td class='text-danger font-weight-bold'>Replies to your complains will show up here.</td></tr>");
+								}
+								console.log($('.recieve').children().length == 0);
+								console.log($('.recieve').children());
+							},
+							error: function(){
+								alert('An error Occurred');
+							}
+						});
+					});
+					
+				});
+				
+			</script>
+			@endsection
+			

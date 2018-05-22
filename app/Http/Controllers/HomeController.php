@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Allocate;
+// use App\Message;
 
 class HomeController extends Controller
 {
@@ -27,7 +28,12 @@ class HomeController extends Controller
 		$user_id = auth()->user()->id;
 		$hosteller = Allocate::where('user_id', $user_id)->first();
 		if($hosteller){
-			return view('home')->with('hosteller', $hosteller);
+			// $count = Message::where([
+			// 	['user_id', '=', $user_id],
+			// 	['admin', '=', 1]
+			// ])->count();
+			// View::share('count', $count);
+			return view('home')->withHosteller($hosteller);
 		}
 		return redirect()->route('allocate.index');
 	}

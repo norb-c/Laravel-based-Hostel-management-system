@@ -19,6 +19,11 @@ class CreateMessagesTable extends Migration
 			$table->unsignedInteger('admin');
 			$table->unsignedInteger('student');
 			$table->unsignedInteger('replied')->default('0');
+			$table->unsignedInteger('admview')->default('0');
+			$table->unsignedInteger('stdview')->default('0');
+			$table->unsignedInteger('sent_del')->default('0');
+			$table->unsignedInteger('rec_del')->default('0');
+
 			$table->timestamps();
 		});
 		
