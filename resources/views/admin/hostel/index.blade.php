@@ -10,7 +10,6 @@
 	<div class="col-md-8">
 		<table id = "hostel" class="table table-bordered table-striped">
 			<thead>
-				<th>#</th>
 				<th>Name</th>
 				<th>Campus</th>
 				<th>Type</th>
@@ -19,7 +18,6 @@
 			<tbody>
 				@foreach ($hostels as $hostel)
 				<tr>
-					<td>{{$hostel->id}}</td>
 					<td>{{$hostel->name}}</td>
 					<td>{{$hostel->campus->name}}</td>
 					@switch($hostel->type)

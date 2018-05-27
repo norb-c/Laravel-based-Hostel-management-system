@@ -44,4 +44,3 @@
 	</div>
 </div>
 </nav>
-<script defer src="{{asset('js/fontawesome-all.min.js')}}"></script>

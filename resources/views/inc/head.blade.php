@@ -18,5 +18,6 @@
 	<link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 	<!-- scripts -->
 	<script src="{{ asset('js/app.js') }}"></script>
-	
+	<script defer src="{{asset('js/fontawesome-all.min.js')}}"></script>
+
 </head>

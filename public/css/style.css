@@ -34,6 +34,10 @@ a.disabled:hover {
 
 /*admin*/
 
+.bg-danger-lighten {
+	background-color: #ffebee !important;
+}
+
 .notify-parent {
 	position: relative;
 }
@@ -70,14 +74,54 @@ div.msg-card {
 	border: 1px solid rgba(0, 0, 0, .125);
 }
 
-a.hint-link {
-	color: #242a30;
-	text-decoration: none;
-	transition: 0.3s;
+.show-card {
+	background-color: #e3f2fd;
+	text-transform: capitalize;
 }
 
-a.hint-link:hover {
-	color: rgb(150, 141, 141);
+.msg-show-body {
+	background-color: #ffffff;
+}
+
+.new {
+	color: #242a30;
+}
+
+.list-group-item svg {
+	margin-right: 5px;
+}
+
+img.show-pic {
+	width: 150px;
+	height: 150px;
+	overflow: hidden;
+	border-radius: 100%;
+	border: 3px solid #fff;
+	background-color: white;
+	vertical-align: middle;
+}
+
+.list-group-item {
+	padding: .75rem .75rem;
+}
+
+div.show-pic-parent {
+	margin: 0 auto;
+}
+
+.msg-show-tab {
+	max-width: 50%;
+	color: #fff;
+}
+
+.bg-show-1 {
+	background-color: #93a7b9 !important;
+	border-radius: 50px 50px 50px 0px;
+}
+
+.bg-show-2 {
+	background-color: #3F729B !important;
+	border-radius: 50px 50px 0px 50px;
 }
 
 p.msg-hint {

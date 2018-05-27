@@ -36,7 +36,7 @@
 									</div>
 									<div class="col p-2">
 										{{$msg->message}}
-										<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+										<span class="float-right font-weight-bold text-danger">{{date('M j, h:ia ',strtotime($msg->created_at))}}</span>
 									</div>
 								</div>
 							</td>
@@ -76,7 +76,7 @@
 										@else
 										{{$msg->message}} <button  class="btn btn-sm btn-success ml-3 read">Mark as Read</button>
 										@endif					
-										<span class="float-right font-weight-bold text-danger">{{date('M j, Y h:ia ',strtotime($msg->created_at))}}</span>
+										<span class="float-right font-weight-bold text-danger">{{date('M j, h:ia ',strtotime($msg->created_at))}}</span>
 									</div>
 								</div>
 							</td>
@@ -129,7 +129,7 @@
 					if($('.holder').length == 1){
 						$('.holder').remove();
 					}
-					$('.sent').prepend("<tr><td class='p-0 px-3'><div class='row'><div class='col-1 p-0 text-center align-self-center'><a href='#' class='btn-sm btn text-danger recdel'><i class='fas fa-trash'></i></a></div><div class='col p-2'>"+data.message+"<button  class='btn btn-sm btn-success ml-3 read'>Mark as Read</button><span class='float-right font-weight-bold text-success'>Just Now</span></div></div></td></tr>");
+					$('.sent').prepend("<tr><td class='p-0 px-3'><div class='row'><div class='col-1 p-0 text-center align-self-center'><a href='#' class='btn-sm btn text-danger sentdel'><i class='fas fa-trash'></i></a></div><div class='col p-2'>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></div></div></td></tr>");
 				},
 				error: function(){
 					console.log('Error Occured');

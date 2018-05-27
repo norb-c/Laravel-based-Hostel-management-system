@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Message;
 use Illuminate\Http\Request;
+use DB;
 
 class AdminMessageController extends Controller
 {
@@ -11,23 +12,49 @@ class AdminMessageController extends Controller
 		$this->middleware('auth:admin');
 	}
 	
-	public function adminindex(){
-		$msg = Message::where([
-			['student','=', 1],
-			['replied', '<', 1]
-			])->orderBy('created_at', 'desc')->paginate(15);
-			return view('admin.message.index')->withMsgs($msg);
-		}
+	public function adminindex()
+	{
+		$message = new Message;
+		$query = DB::select("SELECT * FROM messages WHERE (user_id, created_at) IN (SELECT user_id, MAX(created_at) FROM messages GROUP BY user_id)");
+		$msg = $message->hydrate($query);
 		
-		public function adminshow($id, $user_id){
+		return view('admin.message.index')->withMsgs($msg);
+	}
+		
 
-			$msg = Message::where([
-				['id', '=', $id],
-				['user_id', '=', $user_id]
-			])->first();
-			$msg->update(['admview' => 1]);
-			
-			return view('admin.message.show')->with('msg', $msg);
+	public function adminshow($id, $user_id)
+	{
+
+		$newmsg = Message::where([
+			['id', '=', $id],
+			['user_id', '=', $user_id]
+		])->first();
+
+		//mark as read	
+		$newmsg->update(['admview' => 1]);
+	
+
+		//gets the message the student sends
+		$old = Message::where([
+			['user_id', '=', $user_id],
+			['student', '=', 1],
+		])->orderBy('created_at', 'desc')->get();
+
+		$arr = [];
+			foreach ($old as $oldmsg) {
+				//get replied msg along with the sent msg 
+				$rep = Message::where('replied', $oldmsg->id)->get();
+
+				//if msg has not been replied, push only the recieved msg
+				if(!count($rep)){
+					array_push($arr, ['0' => $oldmsg]);
+				}else{
+					//push the recieved and the replied msg in
+					array_push($arr, $rep);
+				}
+			}
+
+			return view('admin.message.show')->with('new', $newmsg)->with('arr', $arr);
 		}
 
 		public function adminreply(Request $request){
@@ -53,11 +80,6 @@ class AdminMessageController extends Controller
 
 
 			return redirect()->route('adminmsg.index')->with('success', 'Message sent Successfullly');
-		}
-
-
-		public function viewReply(){
-			return view('admin.message.viewreply');
 		}
 
 		public function admindestroy(){
