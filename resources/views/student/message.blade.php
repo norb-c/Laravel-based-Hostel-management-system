@@ -129,7 +129,7 @@
 					if($('.holder').length == 1){
 						$('.holder').remove();
 					}
-					$('.sent').prepend("<tr><td class='p-0 px-3'><div class='row'><div class='col-1 p-0 text-center align-self-center'><a href='#' class='btn-sm btn text-danger sentdel'><i class='fas fa-trash'></i></a></div><div class='col p-2'>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></div></div></td></tr>");
+					deleteNew(data);
 				},
 				error: function(){
 					console.log('Error Occured');
@@ -197,7 +197,7 @@
 				id:id,
 				_token: token,
 			}
-					
+			
 			let uri = "{{route('stdmsg.recdel')}}";
 			$.ajax({
 				method: 'POST',
@@ -214,6 +214,36 @@
 				}
 			});
 		});
+		
+		function deleteNew(data){
+			$('.sent').prepend("<tr><td class='p-0 px-3'><div class='row'><div class='col-1 p-0 text-center align-self-center'><a href='' class='btn-sm btn text-danger delnew'><i class='fas fa-trash'></i></a></div><div class='col p-2'>"+data.message+"<span class='float-right font-weight-bold text-success'>Just Now</span></div></div></td></tr>");
+			
+			$('.delnew').click(function(e){
+				e.preventDefault();
+				let uri = "{{route('stdmsg.sentdel')}}";
+				let parents = $(this).parents('tr');
+
+				let dat = {
+					id:data.id,
+					_token: token,
+				}
+				
+				$.ajax({
+					method: 'POST',
+					url:uri,
+					data:dat,
+					success: function(data){
+						parents.remove();
+						if($('.sent').children().length == 0){
+							$('.sent').html("<tr><td class='text-danger font-weight-bold'>The complains you made will show up here.</td></tr>");
+						}
+					},
+					error: function(){
+						alert('An error Occurred');
+					}
+				});
+			});
+		}
 		
 	});
 	
