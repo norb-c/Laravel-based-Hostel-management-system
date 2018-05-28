@@ -10,7 +10,7 @@
 		<div class="row msg-card my-1 new">
 			<div class="col-1  p-2 pr-0 notify-parent">
 				<img src="{{asset('/storage/passport/'.$msg->allocate->user->passport)}}" class="circle" alt="">
-				@if (!$msg->replied)
+				@if (!$msg->admview)
 				<span class="badge badge-pill badge-danger notify">1</span>
 				@endif
 			</div>
@@ -20,7 +20,11 @@
 						{{$msg->allocate->user->name}} {{$msg->allocate->user->surname}}
 						<span class="badge badge-pill badge-primary">{{$msg->allocate->hostel->name}}</span>
 					</h6>
-					<p class="msg-hint d-inline-block">{{substr($msg->message, 0,100)}}...</p>
+					<p class="msg-hint d-inline-block">{{substr($msg->message, 0,100)}}...
+						@if ($msg->admview)
+						<i class="fas fa-check-circle text-success"></i>
+						@endif
+					</p>
 				</div>
 			</div>
 			<div class="col-2 align-self-center">

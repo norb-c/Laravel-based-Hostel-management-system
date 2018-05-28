@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('/message', 'AdminMessageController@adminindex')->name('adminmsg.index');
 	Route::get('/message/{id}/{user_id}', 'AdminMessageController@adminshow')->name('adminmsg.show');
 	Route::delete('/message/{id}', 'AdminMessageController@admindestroy')->name('adminmsg.destroy');
-	Route::post('/message', 'AdminMessageController@adminreply')->name('adminmsg.reply');
+	Route::post('/message/reply', 'AdminMessageController@adminreply')->name('adminmsg.reply');
+	Route::post('/message/send', 'AdminMessageController@adminsend')->name('adminmsg.send');
 	Route::get('/message/view', 'AdminMessageController@viewReply')->name('adminmsg.viewreply');
 });

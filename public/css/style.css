@@ -133,7 +133,7 @@ p.msg-hint {
 	text-transform: capitalize;
 }
 
-p:not(.email) {
+.tab-pane .p:not(.email) {
 	text-transform: capitalize;
 }
 
