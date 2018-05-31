@@ -34,6 +34,6 @@ class User extends Authenticatable
 	 }
 
 	 public function allocUser(){
-		return $this->belongsTo('App\Allocate');
+		return $this->belongsTo('App\Allocate', 'id', 'user_id');
 	}
 }

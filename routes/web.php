@@ -71,6 +71,10 @@ Route::prefix('admin')->group(function(){
 	
 	Route::resource('/hostels', 'HostelController');
 	Route::resource('/rooms', 'RoomController');
+
+	Route::get('/student/{id}', 'AdminStudentController@allStudents')->name('admin.student.all');
+	Route::get('/student/show/{id}', 'AdminStudentController@showStudent')->name('admin.student.show');
+	Route::post('/student/search/', 'AdminStudentController@searchStudent')->name('admin.student.search');
 	
 	//bed
 	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');

@@ -6,13 +6,13 @@
 @section('content')
 <div class="row my-5">
 	<div class="col-lg-4 col-md-4">
-		<div class="card mb-3 pt-3 show-card">
+		<div class="card mb-3 pt-3 overview-card">
 			<div class="show-pic-parent">
 				<img src="{{asset('/storage/passport/'.$new->allocate->user->passport)}}" alt="{{$new->allocate->user->surname}}" class="show-pic">
 			</div>
 			<div class="text-center">
 				<p class="font-weight-bold"> {{$new->allocate->user->name}} {{$new->allocate->user->surname}} </p>
-				<a href="#" class="btn btn-primary">View Full Profile</a>
+			<a href="{{route('admin.student.show', $new->user_id)}}" class="btn btn-primary">View Full Profile</a>
 			</div>
 			<div>
 				<ul class="list-group list-group-flush">

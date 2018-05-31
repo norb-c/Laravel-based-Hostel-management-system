@@ -112,7 +112,7 @@ class HostelController extends Controller
 		*/
 		public function destroy(Hostel $hostel)
 		{
-			$hostel->delete();
-			return redirect()->route('hostels.create')->with('success', 'Deleted successfully');
+			// $hostel->delete();
+			// return redirect()->route('hostels.create')->with('success', 'Deleted successfully');
 		}
 	}

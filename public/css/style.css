@@ -34,6 +34,64 @@ a.disabled:hover {
 
 /*admin*/
 
+a.list-group-item {
+	text-decoration: none;
+	list-style-type: none;
+	color: rgba(0, 0, 0, .7);
+}
+
+a.list-group-item:hover {
+	background-color: #c7dcea;
+	color: #000;
+	transition: ease-in 0.3s;
+}
+
+.result-parent {
+	position: relative;
+	z-index: 30;
+}
+
+.result-child {
+	position: absolute;
+	margin-top: -20px;
+}
+
+.result-name {
+	padding: 0 5px;
+	border-right: 1px solid #000;
+}
+
+.result-xtra {
+	padding-left: 5px;
+}
+
+.btn-search {
+	color: #3F729B;
+	background-color: transparent;
+	background-image: none;
+	border-color: #749bbb;
+}
+
+.btn-search:hover {
+	color: #fff;
+	background-color: #749bbb;
+	border-color: #749bbb;
+}
+
+input[type='search'] {
+	border: 1px solid #749bbb
+}
+
+.crhostel {
+	padding: 0;
+}
+
+.std-thead th {
+	background-color: #3F729B;
+	border-color: #7c828e;
+	color: #f5f8fa;
+}
+
 .bg-danger-lighten {
 	background-color: #ffebee !important;
 }
@@ -62,11 +120,6 @@ img.circle {
 	vertical-align: middle;
 }
 
-.sticky-top {
-	margin-top: 100px;
-	top: 50px;
-}
-
 div.msg-card {
 	position: relative;
 	margin-bottom: -1px;
@@ -74,7 +127,7 @@ div.msg-card {
 	border: 1px solid rgba(0, 0, 0, .125);
 }
 
-.show-card {
+.overview-card {
 	background-color: #e3f2fd;
 	text-transform: capitalize;
 }
@@ -133,7 +186,7 @@ p.msg-hint {
 	text-transform: capitalize;
 }
 
-.tab-pane .p:not(.email) {
+.tab-pane p:not(.email) {
 	text-transform: capitalize;
 }
 

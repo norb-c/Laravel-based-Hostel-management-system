@@ -36,7 +36,7 @@ class AdminMessageController extends Controller
 			
 			$arr = [];
 			foreach ($old as $oldmsg) {
-				
+				//if the message is coming from a student
 				if(!$oldmsg->admin){
 					//get replied msg along with the sent msg 
 					$rep = Message::where('replied', $oldmsg->id)->get();
@@ -68,7 +68,7 @@ class AdminMessageController extends Controller
 		//send message
 		public function adminsend(Request $request){
 			
-			$this->validate($request, ['message' => 'required|max:140']);
+			$this->validate($request, ['message' => 'required']);
 			
 			$message = new Message;
 			$message->user_id = $request->user_id;
