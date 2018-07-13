@@ -16,6 +16,31 @@ img.slide-item {
 	max-height: 350px;
 }
 
+.dash-parent {
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+	margin: 20px;
+}
+
+.dash {
+	height: 250px;
+	background-color: green;
+	margin: 10px 10px;
+	flex: 1 1 300px;
+	color: white;
+	border-radius: 10px;
+}
+
+a.dash:hover {
+	color: #ccc;
+	text-decoration: none;
+}
+
+svg.fa-home {
+	font-size: 8rem !important;
+}
+
 /* allocate */
 
 .toggle {

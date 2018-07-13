@@ -88,4 +88,7 @@ Route::prefix('admin')->group(function(){
 	Route::post('/message/reply', 'AdminMessageController@adminreply')->name('adminmsg.reply');
 	Route::post('/message/send', 'AdminMessageController@adminsend')->name('adminmsg.send');
 	Route::get('/message/view', 'AdminMessageController@viewReply')->name('adminmsg.viewreply');
+	
+	//reports
+	Route::get('/report', 'ReportController@index')->name('report.index');
 });
