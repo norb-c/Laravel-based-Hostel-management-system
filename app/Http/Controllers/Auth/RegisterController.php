@@ -68,7 +68,7 @@ class RegisterController extends Controller
 			'nokno' => 'required|numeric',
 			'passport'=> 'image|max:1999',
 			'password' => 'required|min:6',
-			'password' => 'required|string|min:6|confirmed',
+			'password' => 'required|min:6|confirmed',
 			]);
 		}
 		

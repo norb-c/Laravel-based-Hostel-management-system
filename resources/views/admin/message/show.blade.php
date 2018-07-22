@@ -12,15 +12,15 @@
 			</div>
 			<div class="text-center">
 				<p class="font-weight-bold"> {{$new->allocate->user->name}} {{$new->allocate->user->surname}} </p>
-			<a href="{{route('admin.student.show', $new->user_id)}}" class="btn btn-primary">View Full Profile</a>
+				<a href="{{route('admin.student.show', $new->user_id)}}" class="btn btn-primary">View Full Profile</a>
 			</div>
 			<div>
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item "><i class="fas fa-user-alt"> </i> {{$new->allocate->user->regno}}</li>
-					<li class="list-group-item "> <i class="fas fa-school"></i> {{$new->allocate->campus->name}}</li>
-					<li class="list-group-item "> <i class="fas fa-home"></i> {{$new->allocate->hostel->name}}</li>
-					<li class="list-group-item "> <i class="fas fa-list-ol"></i> Room no.{{$new->allocate->room_no}}</li>
-					<li class="list-group-item "> <i class="fas fa-warehouse"></i> {{$new->allocate->bed}} Bed</li>
+					<li class="list-group-item "><span class="mr-4"><i class="fas fa-user-alt"></i></span><span class="text-danger font-weight-bold">{{$new->allocate->user->regno}}</span></li>
+					<li class="list-group-item "><span class="mr-4"><i class="fas fa-school"></i></span><span class="text-danger font-weight-bold">{{$new->allocate->campus->name}}</span> </li>
+					<li class="list-group-item "><span class="mr-4"><i class="fas fa-home"></i></span><span class="text-danger font-weight-bold">{{$new->allocate->hostel->name}}</span></li>
+					<li class="list-group-item "><span class="mr-4"><i class="fas fa-list-ol"></span></i><span class="text-danger font-weight-bold">Room number {{$new->allocate->room_no}}</span></li>
+					<li class="list-group-item "><span class="mr-4"><i class="fas fa-warehouse"></i></span><span class="text-danger font-weight-bold">{{$new->allocate->bed}} Bed</span></li>
 				</ul>
 			</div>
 		</div>

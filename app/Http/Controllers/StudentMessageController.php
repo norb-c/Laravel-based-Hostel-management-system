@@ -47,6 +47,7 @@ class StudentMessageController extends Controller
 	*/
 	public function stdShow($id)
 	{
+		if($id == auth()->user()->id){
 		$sentmsg = Message::where([
 			['user_id', '=', $id],
 			['sent_del', '=', 0],
@@ -60,6 +61,10 @@ class StudentMessageController extends Controller
 		])->orderBy('created_at', 'desc')->paginate(10);
 				
 		return view('student.message')->withSentmsg($sentmsg)->withRecmsg($recmsg);
+		}else{
+			return back();
+		}
+		
 	}
 
 	public function stdRead(Request $request){

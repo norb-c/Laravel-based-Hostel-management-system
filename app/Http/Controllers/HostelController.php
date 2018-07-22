@@ -23,7 +23,8 @@ class HostelController extends Controller
 	
 		$hostel = Hostel::orderBy('campus_id')->get();
 		$campus = Campus::all();
-		return view('admin.hostel.index')->withHostels($hostel)->withCampuses($campus);
+		return view('admin.hostel.index')->with(
+			['hostels' => $hostel, 'campuses' => $campus]);
 	}
 	
 	/**

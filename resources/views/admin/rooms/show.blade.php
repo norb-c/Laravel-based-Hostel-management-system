@@ -29,7 +29,7 @@
 						<div class="tab-pane active" id="personal<?=$i?>">
 							<div class="row">
 								<div class="col-md-6 col-lg-8">
-									<h6 class = "font-weight-font-weight- text-danger ">Full Name</h6>
+									<h6 class = "font-weight-font-weight- text-danger">Full Name</h6>
 									<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$occupant->user->name}} {{$occupant->user->surname}}</p>
 									<h6 class = "font-weight-bold  text-danger">Email</h6>
 									<p class="bg-secondary text-white p-1 pl-2 rounded email">{{$occupant->user->email}}</p>

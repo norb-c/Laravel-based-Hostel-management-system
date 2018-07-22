@@ -71,6 +71,8 @@ if($std->floor == 1){
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$std->room_no}}</p>
 						<h6 class = "font-weight-bold  text-danger">Bed Location</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$std->bed}}</p>
+						<h6 class = "font-weight-bold  text-danger">Receipt</h6>
+						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$std->receipt}}</p>
 						<h6 class = "font-weight-bold  text-danger">Room Allocated on</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{date('M j, Y h:ia ',strtotime($std->created_at))}}</p>
 					</div>

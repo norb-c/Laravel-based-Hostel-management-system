@@ -37,7 +37,7 @@ a.dash:hover {
 	text-decoration: none;
 }
 
-svg.fa-home {
+svg.test {
 	font-size: 8rem !important;
 }
 
@@ -58,6 +58,10 @@ a.disabled:hover {
 }
 
 /*admin*/
+
+.admin>td:not(:nth-child(3)) {
+	text-transform: capitalize;
+}
 
 a.list-group-item {
 	text-decoration: none;
@@ -111,6 +115,15 @@ input[type='search'] {
 	padding: 0;
 }
 
+form.create-hostel {
+	font-weight: bold;
+}
+
+.create-hostel-footer {
+	padding: 1rem;
+	border-top: 1px solid #e9ecef
+}
+
 .std-thead th {
 	background-color: #3F729B;
 	border-color: #7c828e;
@@ -118,7 +131,7 @@ input[type='search'] {
 }
 
 .bg-danger-lighten {
-	background-color: #ffebee !important;
+	background-color: #f9183a40 !important;
 }
 
 .notify-parent {
@@ -237,4 +250,25 @@ p.msg-hint {
 
 svg.svg-inline--fa {
 	font-size: 1.0rem;
+}
+
+.rep-hostel:not(:last-child) {
+	border-bottom: 2px solid #dee2e6;
+	padding-bottom: 1rem;
+}
+
+tr.rep-tr:nth-of-type(odd) {
+	background-color: #bee5eb45 !important;
+}
+
+tr.rep-tr:nth-of-type(even) {
+	background-color: #ffffff6e !important;
+}
+
+tr.rep-tr {
+	border-bottom: 2px solid #3f729b59;
+}
+
+.rep-h5 {
+	font-size: 1rem;
 }

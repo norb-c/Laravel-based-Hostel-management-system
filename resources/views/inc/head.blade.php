@@ -15,10 +15,12 @@
 	<!-- Styles -->
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
 	<!-- scripts -->
 	<script src="{{ asset('js/app.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
+	<script src="{{ asset('js/toastr.min.js') }}"></script>
 	<script defer src="{{asset('js/fontawesome-all.min.js')}}"></script>
-
+	
 </head>

@@ -29,18 +29,22 @@ class HomeController extends Controller
 		$hosteller = Allocate::where('user_id', $user_id)->first();
 		if($hosteller){
 			// $count = Message::where([
-			// 	['user_id', '=', $user_id],
-			// 	['admin', '=', 1]
-			// ])->count();
-			// View::share('count', $count);
-			return view('home')->withHosteller($hosteller);
+				// 	['user_id', '=', $user_id],
+				// 	['admin', '=', 1]
+				// ])->count();
+				// View::share('count', $count);
+				return view('home')->withHosteller($hosteller);
+			}
+			return redirect()->route('allocate.index');
 		}
-		return redirect()->route('allocate.index');
+		public function show($id){
+			if($id == auth()->user()->id){
+				$student = Allocate::where('user_id', $id)->first();
+				return view('student.profile')->with('student', $student);
+			}else{
+				return back();
+			}
+			
+		}
+		
 	}
-	public function show($id){
-
-		$student = Allocate::where('user_id', $id)->first();
-		return view('student.profile')->with('student', $student);
-	}
-
-}

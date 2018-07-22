@@ -8,7 +8,7 @@
 <div class="row">
 	<div class="col-lg-3 col-md-3">
 		<div class="my-4">
-			<button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#message">Make new Complain</button>
+			<button type="button" class="btn btn-warning btn-block" data-toggle="modal" data-target="#message">Make new Complain</button>
 		</div>
 	</div>
 	

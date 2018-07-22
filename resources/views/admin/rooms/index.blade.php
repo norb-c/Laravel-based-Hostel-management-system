@@ -1,14 +1,13 @@
 @extends('layouts.app')
 @section('nav')
 @include('inc.nav-admin')
-@include('inc.modal')
+{{-- @include('inc.modal') --}}
 @endsection
 
 @section('content')
 <div class="row">
-	
-	
 	<div class="col-md-7">
+			<h4 class="text-center mb-5 mt-2 text-danger">List of Rooms in {{$hostel->name}}</h4>
 		<table id = "room" class="table-bordered table-striped table">
 			<thead class="table-primary">
 				<th>Floor</th>
@@ -18,7 +17,7 @@
 			</thead>
 			<tbody>
 				@foreach ($rooms as $room)
-				<tr >
+				<tr class="<?= ($room->available == 0)? 'bg-danger-lighten': '' ?>">
 					@switch($room->floor)
 					@case(1)
 					<td>First</td>
@@ -43,14 +42,14 @@
 		
 	</div>
 	<div class="col-md-5">
-		<div class="card">
+		<div class="card mt-4">
 			<div class="card-header text-center">
 				Create Rooms
 			</div>
-			<div class="card-body d-flex justify-content-center">
+			<div class="card-body">
 				{{Form::open(['route' => 'rooms.store', 'method' => 'POST'])}}
 				<div class=" form-group row">
-					{{Form::label('campus', 'Campus:', ['class' => 'col-3 col-form-label text-md-left'])}}
+					{{Form::label('campus', 'Campus:', ['class' => 'col-4 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="campus_id" id="campus" class="form-control" readonly>
 							<option value="{{$hostel->campus->id}}">{{$hostel->campus->name}}</option>
@@ -59,7 +58,7 @@
 				</div>
 				
 				<div class=" form-group row">
-					{{Form::label('hostel', 'Hostel:', ['class' => 'col-3 col-form-label text-md-left'])}}
+					{{Form::label('hostel', 'Hostel:', ['class' => 'col-4 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="hostel_id" id="hostel" class="form-control" readonly>
 							<option value="{{$hostel->id}}">{{$hostel->name}}</option>
@@ -68,7 +67,7 @@
 				</div>
 				
 				<div class=" form-group row">
-					{{Form::label('type', 'Type:', ['class' => 'col-3 col-form-label text-md-left'])}}
+					{{Form::label('type', 'Type:', ['class' => 'col-4 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="type" id="type" class="form-control" readonly>
 							<option value="{{$hostel->type}}"><?= ($hostel->type == 1)? 'Male': 'Female' ?></option>
@@ -77,7 +76,7 @@
 				</div>
 				
 				<div class=" form-group row">
-					{{Form::label('floor', 'Floor:', ['class' => 'col-3 col-form-label text-md-left'])}}
+					{{Form::label('floor', 'Floor:', ['class' => 'col-4 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="floor" id="floor" class="form-control">
 							<option value="">Select Floor</option>
@@ -88,37 +87,14 @@
 					</div>
 				</div>
 				<div class=" form-group row">
-					{{Form::label('room_no', 'Room No.:', ['class' => 'col-3 col-form-label text-md-left'])}}
+					{{Form::label('room_no', 'Room No.:', ['class' => 'col-4 col-form-label text-md-left'])}}
 					<div class="col">
 						<select name="room_no" id="room_no" class="form-control">
 							<option value="">Select Room Number</option>
 						</select>
 					</div>
-				</div>
-				<div class=" form-group row">
-					{{Form::label('first', 'Space 1:', ['class' => 'col col-form-label text-md-left'])}}
-					<div class="col">
-						<input type="number" value = "0" min = "0" name="first" id="first" class="form-control">
-					</div>
-					{{Form::label('second', 'Space 2:', ['class' => 'col col-form-label text-md-left'])}}
-					<div class="col">
-						<input type="number" value = "0" min="0" name="second" id="second" class="form-control">
-					</div>
-				</div>
-				
-				<div class=" form-group row">
-					{{Form::label('third', 'Space 3:', ['class' => 'col col-form-label text-md-left'])}}
-					<div class="col">
-						<input type="number" value = "0" min="0" name="third" id="second" class="form-control">
-					</div>
-					{{Form::label('fourth', 'Space 4:', ['class' => 'col col-form-label text-md-left'])}}
-					<div class="col">
-						<input type="number" value = "0" min="0" name="fourth" id="fourth" class="form-control">
-					</div>
-				</div>
-				
+				</div> 	   				
 				<div class="form-group row">
-					<div class="col-md-4"></div>
 					<div class="col">
 						{{Form::submit('Create Room', ['class' => 'btn btn-block btn-success'])}}
 					</div>

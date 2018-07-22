@@ -32,7 +32,7 @@ if($student->floor == 1){
 			<div class="tab-pane active" id="personal">
 				<div class="row">
 					<div class="col-md-6 col-lg-8">
-						<h6 class = "font-weight-font-weight- text-danger "><i class="fas fa-male"></i> Full Name</h6>
+						<h6 class = "font-weight-font-weight- text-danger ">Full Name</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$student->user->name}} {{$student->user->surname}}</p>
 						<h6 class = "font-weight-bold  text-danger">Email</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded email">{{$student->user->email}}</p>
@@ -70,6 +70,8 @@ if($student->floor == 1){
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$student->room_no}}</p>
 						<h6 class = "font-weight-bold  text-danger">Bed Location</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$student->bed}}</p>
+												<h6 class = "font-weight-bold  text-danger">Receipt</h6>
+						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$student->receipt}}</p>
 						<h6 class = "font-weight-bold  text-danger">Room Allocated on</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{date('M j, Y h:ia ',strtotime($student->created_at))}}</p>
 					</div>

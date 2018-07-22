@@ -1,16 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
 	return view('welcome');
 });
@@ -30,7 +19,7 @@ Route::prefix('student')->group(function(){
 	Route::get('/allocate/check', 'AllocateController@check')->name('allocate.check');
 	Route::post('/allocate', 'AllocateController@allocate')->name('allocate.allocate');
 	Route::get('/profile/{id}', 'HomeController@show')->name('profile.show');
-
+	
 	Route::post('/message', 'studentMessageController@stdStore')->name('stdmsg.store');
 	Route::get('/message/{id}', 'studentMessageController@stdShow')->name('stdmsg.show');
 	Route::post('/message/read', 'studentMessageController@stdRead')->name('stdmsg.read');
@@ -41,7 +30,7 @@ Route::prefix('student')->group(function(){
 
 Route::get('/mail', function () {
 	$mail = App\Allocate::where('user_id', 1)->first();
-
+	
 	return new App\Mail\AllocatesEmail($mail);
 });
 
@@ -59,6 +48,10 @@ Route::prefix('admin')->group(function(){
 	//logout admin
 	Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 	
+	//admin activities
+	Route::get('/administrators', 'AdminController@showAdmins')->name('admin.admins');
+	Route::post('/create', 'AdminController@createAdmin')->name('admin.create');
+	
 	
 	//1.shows the form for the user to put in his email for password reset, sent from the admin forgot password login
 	Route::get('/password/reset', 'Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
@@ -71,16 +64,19 @@ Route::prefix('admin')->group(function(){
 	
 	Route::resource('/hostels', 'HostelController');
 	Route::resource('/rooms', 'RoomController');
-
+	
 	Route::get('/student/{id}', 'AdminStudentController@allStudents')->name('admin.student.all');
 	Route::get('/student/show/{id}', 'AdminStudentController@showStudent')->name('admin.student.show');
 	Route::post('/student/search/', 'AdminStudentController@searchStudent')->name('admin.student.search');
+	Route::get('/notifications', 'AdminStudentController@notifyIndex')->name('admin.notifyindex');
+	Route::post('/notifyCreate', 'AdminStudentController@notifyCreate')->name('admin.notifycreate');
+	Route::delete('/notifyDelete/{id}', 'AdminStudentController@notifyDelete')->name('admin.notifydelete');
 	
 	//bed
 	Route::get('/bed/edit', 'RoomController@bedEdit')->name('bed.edit');
 	Route::post('/bed/update', 'RoomController@bedUpdate')->name('bed.update');
 	Route::put('/rooms/updatephoto/{id}', 'RoomController@updatephoto');
-
+	
 	//complains
 	Route::get('/message', 'AdminMessageController@adminindex')->name('adminmsg.index');
 	Route::get('/message/{id}/{user_id}', 'AdminMessageController@adminshow')->name('adminmsg.show');
@@ -91,4 +87,5 @@ Route::prefix('admin')->group(function(){
 	
 	//reports
 	Route::get('/report', 'ReportController@index')->name('report.index');
+	Route::get('/report/{id}', 'ReportController@report')->name('report.report');
 });
