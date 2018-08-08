@@ -33,7 +33,7 @@ if($std->floor == 1){
 			<div class="tab-pane active" id="personal">
 				<div class="row">
 					<div class="col-md-6 col-lg-8">
-						<h6 class = "font-weight-font-weight- text-danger "><i class="fas fa-male"></i> Full Name</h6>
+						<h6 class = "font-weight-font-weight- text-danger ">Full Name</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded ">{{$std->user->name}} {{$std->user->surname}}</p>
 						<h6 class = "font-weight-bold  text-danger">Email</h6>
 						<p class="bg-secondary text-white p-1 pl-2 rounded email">{{$std->user->email}}</p>

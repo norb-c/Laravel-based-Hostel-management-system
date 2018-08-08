@@ -11,7 +11,7 @@
 					<p class="text-center"><i class="fas fa-home test"></i></p>
 				</div>
 				<div class="col-12">
-					<h3 class="text-center">Hostels</h3>
+					<h3 class="text-center">Hostels, Rooms &amp; Students</h3>
 				</div>
 				
 			</a>
@@ -68,9 +68,5 @@
 	
 </div>
 </div>
-<script>
-	$(function(){
-		toastr.success('Suceessfully Logged In');
-	});
-</script>
+
 @endsection

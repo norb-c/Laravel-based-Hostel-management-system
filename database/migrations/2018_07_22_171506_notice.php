@@ -15,10 +15,12 @@ class Notice extends Migration
 	{
 		Schema::create('notice', function (Blueprint $table) {
 			$table->increments('id');
+			$table->string('title');
 			$table->string('notice');
 			$table->unsignedInteger('hostel_id');
 			$table->foreign('hostel_id')->references('id')->on('hostels')->onDelete('cascade');
 			$table->string('administrator');
+			$table->unsignedInteger('read')->default('0');
 			$table->timestamps();
 		});
 	}

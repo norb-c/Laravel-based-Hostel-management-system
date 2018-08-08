@@ -6,14 +6,13 @@
 @section('content')
 <div class="row">
 	
-	<div class="col-9">
+	<div class="col-12">
 		<table id = "campus" class="table table-bordered table-striped ">
 			<thead class="std-thead">
 				<th>Name</th>
 				<th>Hostels</th>
 			</thead>
 			<tbody>
-				
 				@foreach ($campus as $camp)
 				<tr class="rep-tr">
 					<td class="text-center my-auto">
@@ -44,18 +43,5 @@
 		</table>
 		
 	</div>
-	<div class="col-3">
-		<div class="card">
-			<div class="card-header">
-				<h5 class="text-center m-0 p-0">Overview</h5>
-			</div>
-			<ul class="list-group list-group-flush">
-				<li class="list-group-item">Cras justo odio</li>
-				<li class="list-group-item">Dapibus ac facilisis in</li>
-				<li class="list-group-item">Vestibulum at eros</li>
-			</ul>
-		</div>
-	</div>
-	
 </div>
 @endsection

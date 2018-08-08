@@ -2,13 +2,16 @@
 <div id="slide" class="carousel slide mb-5" data-ride="carousel">
 	<div class="carousel-inner">
 		<div class="carousel-item active">
-			<img class="d-block slide-item" src="{{ asset('image/slide.jpg')}}" alt="First slide">
+			<img class="d-block slide-item" src="{{ asset('image/1.jpg')}}" alt="First slide">
 		</div>
 		<div class="carousel-item">
-			<img class="d-block slide-item" src="{{ asset('image/slide.jpg')}}" alt="Second slide">
+			<img class="d-block slide-item" src="{{ asset('image/2.jpg')}}" alt="Second slide">
 		</div>
 		<div class="carousel-item">
-			<img class="d-block slide-item" src="{{ asset('image/slide.jpg')}}" alt="Third slide">
+			<img class="d-block slide-item" src="{{ asset('image/4.jpg')}}" alt="Third slide">
+		</div>
+		<div class="carousel-item">
+			<img class="d-block slide-item" src="{{ asset('image/5.jpg')}}" alt="Third slide">
 		</div>
 	</div>
 	<a class="carousel-control-prev" href="#slide" role="button" data-slide="prev">

@@ -29,7 +29,7 @@ class AdminLoginController extends Controller
 			//attempt to log the user in
 		if(Auth::guard('admin')->attempt($this->credentials($request))){
 				//if succcesful attempt to redirect to their intended location
-			return redirect()->intended('/admin');
+			return redirect()->intended('/admin')->with('success', 'Your are Logged in as an Administrator');
 		}
 
 			//if unsuccessful, redirect back to the login with the form data

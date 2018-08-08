@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel mb-4">
+<nav class="navbar navbar-expand-md navbar-dark navbar-laravel user mb-4">
 	<div class="container">
 		<a class="navbar-brand" href="{{ url('/home') }}">
 			{{ config('app.name', 'Laravel') }}
@@ -20,14 +20,14 @@
 				<li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
 				<li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
 				@else
-			<a href="{{route('stdmsg.show',Auth::user()->id)}}" class="nav-link">Messages <span class="badge badge-pill badge-danger">1</span></a>
+				<a href="{{route('stdmsg.show',Auth::user()->id)}}" class="nav-link">Messages <span class="badge badge-pill badge-danger">1</span></a>
+				<a href="{{route('profile.show',Auth::user()->id)}}" class="nav-link">Your Profile</a>
 				<li class="nav-item dropdown">
 					<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
 						Hello {{ Auth::user()->name }} <span class="caret"></span>
 					</a>
 					
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a href="{{route('profile.show',Auth::user()->id)}}" class="dropdown-item">Profile</a>
 						<a href="" class="dropdown-item">Change Password</a>
 						<a class="dropdown-item" href="{{ route('user.logout') }}"
 						onclick="event.preventDefault();

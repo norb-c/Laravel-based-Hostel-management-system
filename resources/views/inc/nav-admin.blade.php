@@ -20,6 +20,9 @@
 				<li class="nav-item ">
 					<a class="nav-link" href="{{route('admin.admins')}}">Adminstrators</a>
 				</li>
+				<li class="nav-item ">
+					<a class="nav-link" href="{{route('admin.notifyindex')}}">Notifications</a>
+				</li>
 			</ul>
 			
 			<!-- Right Side Of Navbar -->

@@ -3,23 +3,32 @@
 @include('inc.nav-alloc')
 @endsection
 
-
 @section('content')
+
 <div class="row">
+	<div class="col-12 text-center">
+		<h4 class="text-center m-0 text-danger">Hostel and Bed Space Selection</h4>
+	</div>
+</div>
+<div class="row mt-5">
 	<div class="col parent">
 		<div class="toggle h-100 w-100">
 			<div class="h-100 w-100 ">
-				<a href="" id = "first" class="bed d-inline-block bg-success h-25 w-25 m-3">
-					<h1 class="text-center text-light">A</h1>
+				<a href="" id = "first" class="bed d-inline-block h-25 w-25 m-3">
+					<p class="text-center"><i class="fas fa-bed alloc-test"></i></p>
+					<h3 class="text-center">First</h3>
 				</a>
-				<a href="" id = "second" class="bed d-inline-block bg-success h-25 w-25 m-3">
-					<h1 class="text-center text-light">B</h1>
+				<a href="" id = "second" class="bed d-inline-block h-25 w-25 m-3">
+					<p class="text-center"><i class="fas fa-bed alloc-test"></i></p>
+					<h3 class="text-center">Second</h3>
 				</a>
-				<a href="" id = "third" class="bed d-inline-block  bg-success h-25 w-25 m-3">
-					<h1 class="text-center text-light">C</h1>
+				<a href="" id = "third" class="bed d-inline-block  h-25 w-25 m-3">
+					<p class="text-center"><i class="fas fa-bed alloc-test"></i></p>
+					<h3 class="text-center">Third</h3>
 				</a>
-				<a href="" id = "fourth" class="bed d-inline-block bg-success h-25 w-25 m-3">
-					<h1 class="text-center text-light">D</h1>
+				<a href="" id = "fourth" class="bed d-inline-block h-25 w-25 m-3">
+					<p class="text-center"><i class="fas fa-bed alloc-test"></i></p>
+					<h3 class="text-center">Fourth</h3>
 				</a>
 			</div>
 		</div>
@@ -55,8 +64,8 @@
 					<div class="col">
 						<select name="hostel_id" id="hostel_id" class="form-control" >
 							<option value="">Select Hostel</option>
-							@foreach ($hostels as $hostel)
-							<option value="{{$hostel->id}}">{{$hostel->name}}</option>
+							@foreach ($availables as $available)
+							<option value="{{$available->hostel_id}}">{{$available->hostel->name}}</option>
 							@endforeach
 						</select>
 					</div>
@@ -86,7 +95,7 @@
 				<div class="form-group row mt-5">
 					<div class="col-3"></div>
 					<div class="col">
-						<input type="submit" value="Show Available Bed Space" class="btn btn-block btn-success" disabled>
+						<input type="submit" value="Show Available Bed Space" class="btn btn-block btn-shadow btn-success" disabled>
 					</div>
 				</div>
 				{{Form::close()}}
@@ -95,7 +104,11 @@
 	</div>
 </div>
 </div>
-
+<div>
+	<div data-u="loading" class="jssorl-009-spin spin paystackspin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.5);">
+		<img style="margin-top:-15px;position:relative;top:35%;width:38px;height:38px;" src="{{asset('image/spin.svg')}}" />
+	</div>
+</div>
 <script>
 	
 	$(function(){
@@ -217,31 +230,31 @@
 					
 					if(data.first > 0){
 						first.addClass('disabled');
-						first.removeClass('bg-success');
+						first.removeClass('text-available');
 					}else{
 						first.removeClass('disabled');
-						first.addClass('bg-success');
+						first.addClass('text-available');
 					}
 					if(data.second > 0){
 						second.addClass('disabled');
-						second.removeClass('bg-success');
+						second.removeClass('text-available');
 					}else{
 						second.removeClass('disabled');
-						second.addClass('bg-success');
+						second.addClass('text-available');
 					}
 					if(data.third > 0){
 						third.addClass('disabled');
-						third.removeClass('bg-success');
+						third.removeClass('text-available');
 					}else{
 						third.removeClass('disabled');
-						third.addClass('bg-success');
+						third.addClass('text-available');
 					}
 					if(data.fourth > 0){
 						fourth.addClass('disabled');
-						fourth.removeClass('bg-success');
+						fourth.removeClass('text-available');
 					}else{
 						fourth.removeClass('disabled');
-						fourth.addClass('bg-success');
+						fourth.addClass('text-available');
 					}
 					disabled = $('.disabled');
 					enabled = $('a.bed:not(.disabled)');
@@ -259,7 +272,6 @@
 			});
 			
 			enabled.click(function(e){
-				
 				e.preventDefault();
 				let urii = "{{route('allocate.check')}}";
 				//gets the space selected
@@ -280,14 +292,18 @@
 					success: function(data){
 						if(data > 0){
 							//error
-							alert('Space has taken please refresh the page');
+							toastr.error("That Space has already been taken.");
 						}else if(data == 0){
 							//add loading effects
-
+							$(".paystackspin").css({
+								display: "block"
+							})
 							//paystack
 							payWithPaystack();
-							
 						}
+					},
+					error: function() {
+						toastr.error("Poor Newtwork Connection,Try Again.");
 					}
 				});
 			});
@@ -297,7 +313,7 @@
 			var handler = PaystackPop.setup({
 				key: 'pk_test_81e179b9b83f22f85a2c30c038cd957dbc21b369',
 				email: email,
-				amount: 10000,
+				amount: 4000000,
 				ref: ''+Math.floor((Math.random() * 1000000000) + 1), 
 				metadata: {
 					custom_fields: [{
@@ -344,13 +360,21 @@
 						url:urll,
 						data:dat,
 						success: function(data){
-							//redirect
-							console.log(data);
+							toastr.success("Bedspace asigned successfully.");
+							$(".paystackspin").css({
+								display: "none"
+							});
+							location.href = "{{route('home')}}"
 						}
 					})
 				},
+				error: function() {
+					toastr.error("Poor Newtwork Connection,Try Again.");
+				},
 				onClose: function(){
-					alert('window closed');
+					$(".paystackspin").css({
+						display: "none"
+					});
 				}
 			});
 			handler.openIframe();

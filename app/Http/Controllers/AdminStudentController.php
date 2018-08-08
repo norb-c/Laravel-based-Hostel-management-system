@@ -52,21 +52,23 @@ class AdminStudentController extends Controller
 			]);
 		}
 		
-		public function notifyCreate(Request $request){
+	public function notifyCreate(Request $request){
 			$this->validate($request, [
+				'title' => 'required',
 				'notice' => 'required',
-				]);
+			]);
 				
-				$notice = new Notice;
-				$notice->notice = $request->notice;
-				$notice->hostel()->associate($request->hostel_id);
-				$notice->administrator = $request->name;
-				$notice->save();
-				return redirect()->route('admin.notifyindex')->with('success', 'Successfully sent to Students');
-			}
+			$notice = new Notice;
+			$notice->title = $request->title;
+ 			$notice->notice = $request->notice;
+			$notice->hostel()->associate($request->hostel_id);
+			$notice->administrator = $request->name;
+			$notice->save();
+			return redirect()->route('admin.notifyindex')->with('success', 'Successfully sent to Students');
+	}
 			
-			public function notifyDelete($id){
-				$notice = Notice::find($id)->delete();
-				return redirect()->route('admin.notifyindex')->with('success', 'Successfully Deleted');
-			}
+		public function notifyDelete($id){
+			$notice = Notice::find($id)->delete();
+			return redirect()->route('admin.notifyindex')->with('success', 'Successfully Deleted');
 		}
+	}

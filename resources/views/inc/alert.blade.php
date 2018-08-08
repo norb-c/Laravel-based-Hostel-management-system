@@ -1,19 +1,25 @@
 @if (count($errors))
-	 @foreach ($errors->all() as $error)
-		<div class="alert alert-danger alert-dismissable">
+@foreach ($errors->all() as $error)
+<div class="alert alert-danger alert-dismissable">
 	<a class="panel-close close" data-dismiss="alert">×</a>{{$error}}
 </div>
-	 @endforeach
+@endforeach
 @endif
 
 @if (session('success'))
-<div class="alert alert-success alert-dismissable">
-	<a class="panel-close close" data-dismiss="alert">×</a>{{session('success')}}
-</div>
+<script>
+	$(function(){
+		var msg = "{{session('success')}}";
+		toastr.success(msg);
+	});
+</script>
 @endif
 @if (session('error'))
-<div class="alert alert-danger alert-dismissable">
-	<a class="panel-close close" data-dismiss="alert">×</a>{{session('error')}}
-</div>
+<script>
+	$(function(){
+		var msg = "{{session('error')}}";
+		toastr.success(msg);
+	});
+</script>
 @endif
 

@@ -31,7 +31,6 @@
 					<td>{{$room->room_no}}</td>
 					<td>
 						<span class="mx-3">{{$room->available}}</span>
-						<button class="btn btn-sm btn-outline-primary btnupd" data-id ="{{$room->id}}">Update Bed Space</button>  
 					</td>
 				<td><a href="{{route('rooms.show',$room->id)}}" class="btn btn-block btn-sm btn-outline-primary">View Occupants</a></td>
 				</tr>

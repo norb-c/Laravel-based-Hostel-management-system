@@ -18,7 +18,8 @@ Route::prefix('student')->group(function(){
 	Route::get('/allocate/getbed', 'AllocateController@getBed')->name('allocate.getBed');
 	Route::get('/allocate/check', 'AllocateController@check')->name('allocate.check');
 	Route::post('/allocate', 'AllocateController@allocate')->name('allocate.allocate');
-	Route::get('/profile/{id}', 'HomeController@show')->name('profile.show');
+	Route::get('/profile/{id}', 'HomeController@showProfile')->name('profile.show');
+	
 	
 	Route::post('/message', 'studentMessageController@stdStore')->name('stdmsg.store');
 	Route::get('/message/{id}', 'studentMessageController@stdShow')->name('stdmsg.show');

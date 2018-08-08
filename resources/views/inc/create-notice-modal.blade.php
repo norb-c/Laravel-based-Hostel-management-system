@@ -9,11 +9,19 @@
 			</div>
 			<div class="modal-body">
 				{{Form::open(['route' => 'admin.notifycreate', 'method' => 'POST', 'class' => 'create-hostel'])}}
+				
+				<div class=" form-group">
+					<label for="title" class="col-form-label font-weight-bold">Title: 
+					</label>
+					{{Form::text('title', null, ['class' => 'form-control'])}}
+				</div>
+				
 				<div class="form-group">
 					<label for="message-text" class="col-form-label font-weight-bold">Notification: 
 					</label>
 					<textarea class="form-control" id="notice" rows="3" name="notice"></textarea>
 				</div>
+				
 				<div class=" form-group row">
 					<div class="col">
 						<select name="hostel_id" id="hostel" class="form-control">

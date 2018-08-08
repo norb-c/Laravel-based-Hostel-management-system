@@ -21,13 +21,12 @@ class AllocateController extends Controller
 		$std_id = auth()->user()->id;
 		$std = User::find($std_id);
 		
-		//find hostel by campus and gender
-		$hostel = Hostel::where([
+		//find available hostel by campus and gender 
+		$availables = Room::where([
 			['type', '=', $std->gender],
-			['campus_id', '=', $std->campus_id]
-			])->get();
-			
-		return view('student.allocate')->withStudent($std)->withHostels($hostel);
+			['campus_id', '=', $std->campus_id],
+			])->groupBy('hostel_id')->having('available', '>', 0)->get();
+		return view('student.allocate')->withStudent($std)->withAvailables($availables);
 			
 	}
 		

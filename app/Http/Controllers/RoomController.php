@@ -50,10 +50,6 @@ class RoomController extends Controller
 		$this->validate($request, [
 			'floor'	=> 'required',
 			'room_no'=> 'required|unique:rooms,room_no',
-			'first' 	=> 'required',
-			'second' 	=> 'required',
-			'third' 	=> 'required',
-			'fourth' 	=> 'required'
 			]);
 			
 			$room = new Room;
@@ -68,10 +64,10 @@ class RoomController extends Controller
 			}
 			
 			$bed_arr = [
-				'first' => $request->first,
-				'second'=> $request->second,
-				'third' => $request->third,
-				'fourth'=> $request->fourth,
+				'first' => '0',
+				'second'=> '0',
+				'third' => '0',
+				'fourth'=> '0',
 			];
 			
 			$bed_json = json_encode($bed_arr);
