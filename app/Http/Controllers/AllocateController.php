@@ -141,12 +141,12 @@ class AllocateController extends Controller
 		$bed_json = json_encode($newbed);
 		$bedrow->decrement('available', 1, ['bed' => $bed_json]);
 
-		//send email
+		// send email
 		$mail = Allocate::where('user_id', $user_id)->first();
 		
 		//queues the email for sending in background
 		AllocatsSendEmail::dispatch($mail);
 
-		return response()->json('success');
+		return response()->json('');
 	}
 }
